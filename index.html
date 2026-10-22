@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GaonKart - Smart Village Marketplace</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#176b45;--light:#edf6e9;--dark:#123c2a;--orange:#ed8b36}
+body{font-family:Arial,sans-serif;background:#f7f9f5;color:#18251d}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.top{background:var(--dark);color:white;text-align:center;padding:9px;font-size:13px}
+header{background:white;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0001}
+.head{max-width:1200px;margin:auto;padding:15px;display:flex;align-items:center;gap:20px}
+.logo{color:var(--green);font-size:25px;font-weight:900;white-space:nowrap}
+.logo small{display:block;font-size:10px;letter-spacing:1px}
+.search{display:flex;flex:1;background:#f5f8f3;border:1px solid #ddd;border-radius:10px;padding:5px}
+.search input{width:100%;min-width:0;border:0;background:transparent;padding:9px;outline:none}
+button.primary,.search button{border:0;background:var(--green);color:white;padding:11px 16px;border-radius:9px;font-weight:bold}
+button.soft{background:white;border:1px solid #ddd;padding:10px;border-radius:9px}
+nav{max-width:1200px;margin:auto;padding:0 15px 12px;display:flex;gap:8px;overflow:auto}
+nav button{border:1px solid #e4e8e1;background:white;border-radius:25px;padding:9px 14px;white-space:nowrap}
+nav button.active{background:var(--light);color:var(--green)}
+main{max-width:1200px;margin:auto;padding:22px 16px}
+.hero{display:grid;grid-template-columns:1fr 1fr;background:linear-gradient(120deg,#123c2a,#278052);color:white;border-radius:22px;overflow:hidden;min-height:330px}
+.hero-text{padding:38px;align-self:center}
+.hero h1{font-size:clamp(30px,4vw,48px);line-height:1.1;margin:18px 0}
+.hero h1 span{color:#dff3a5}
+.hero p{line-height:1.7;color:#e1eee3;margin-bottom:22px}
+.hero .primary{background:#dff3a5;color:#123c2a}
+.hero-image{display:grid;place-items:center;padding:20px;position:relative}
+.hero-image img{width:100%;height:270px;object-fit:cover;border-radius:17px}
+.hero-image .note{position:absolute;bottom:30px;left:8%;background:white;color:#123c2a;padding:12px;border-radius:10px;font-size:12px}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 32px}
+.benefit{background:white;border:1px solid #e6eae3;border-radius:13px;padding:16px;font-size:13px}
+.benefit b{display:block;margin-top:6px}
+h2{font-size:25px;margin-bottom:7px}
+.subtitle{color:#68766c;font-size:13px;margin-bottom:17px}
+.section{margin:30px 0}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.category{background:white;border:1px solid #e4e8e1;border-radius:14px;padding:17px 6px;text-align:center}
+.category span{display:block;font-size:32px;margin-bottom:8px}
+.category b{font-size:12px}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.product{background:white;border:1px solid #e4e8e1;border-radius:15px;overflow:hidden}
+.photo{height:185px;background:#f0eee5;position:relative;display:grid;place-items:center}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo .emoji{display:none;font-size:75px}
+.tag{position:absolute;top:9px;left:9px;background:#e5f4d7;color:#24633d;padding:5px 8px;border-radius:15px;font-size:10px}
+.details{padding:13px}
+.details h3{font-size:15px;margin-bottom:7px}
+.desc{font-size:12px;color:#68766c;line-height:1.5;min-height:36px}
+.maker{font-size:11px;color:#68766c;margin:9px 0}
+.price{color:var(--green);font-size:19px;font-weight:900;margin:10px 0}
+.old{font-size:12px;color:#999;text-decoration:line-through;font-weight:normal;margin-left:6px}
+.actions{display:flex;gap:7px}
+.actions button{flex:1;padding:9px 4px;border-radius:8px;font-size:12px;font-weight:bold}
+.add{background:var(--light);border:1px solid #cde3c5;color:var(--green)}
+.buy{background:var(--green);border:1px solid var(--green);color:white}
+.story{margin:35px 0;background:#edf5e8;padding:27px;border-radius:18px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.story p{color:#536557;line-height:1.6;margin-top:8px}
+.story span{font-size:65px}
+.assistant{background:white;border:1px solid #e4e8e1;border-radius:15px;padding:22px;display:flex;align-items:center;gap:15px;margin:30px 0}
+.assistant p{font-size:13px;color:#68766c;margin-top:5px}
+.assistant button{margin-left:auto;white-space:nowrap}
+footer{background:var(--dark);color:white;padding:30px 20px}
+footer p{color:#bcd0c1;margin-top:8px;font-size:13px}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:30;align-items:center;justify-content:center;padding:15px}
+.overlay.open{display:flex}
+.modal{background:white;border-radius:18px;padding:23px;width:min(560px,100%);max-height:90vh;overflow:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.close{border:0;background:#eee;border-radius:50%;width:34px;height:34px;font-size:20px}
+.cartline{display:grid;grid-template-columns:55px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid #eee;align-items:center}
+.mini{width:55px;height:55px;display:grid;place-items:center;background:#f0eee5;border-radius:9px;font-size:28px;overflow:hidden}
+.mini img{width:100%;height:100%;object-fit:cover}
+.cartline h4{font-size:13px;margin-bottom:5px}
+.cartline small{color:#68766c}
+.qty{display:flex;align-items:center;gap:10px;margin-top:6px}
+.qty button{border:1px solid #ddd;background:white;border-radius:5px;width:24px;height:24px}
+.totals{display:flex;justify-content:space-between;margin:13px 0}
+.total{border-top:1px solid #ddd;padding-top:13px;font-size:19px;font-weight:bold}
+.full{width:100%;margin-top:12px}
+.empty{text-align:center;padding:30px;color:#68766c}
+.empty span{font-size:45px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}
+.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wide{grid-column:1/-1}
+.hint{font-size:12px;color:#68766c;line-height:1.5;margin:10px 0}
+.success{text-align:center;padding:20px;display:none}
+.success.show{display:block}
+.check{font-size:55px;color:var(--green)}
+.orderid{background:var(--light);padding:12px;margin:15px 0;border-radius:9px;font-weight:bold}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;padding:12px 18px;border-radius:10px;display:none;z-index:50}
+@media(max-width:850px){.head{flex-wrap:wrap;gap:10px}.search{order:3;flex-basis:100%}.hero{grid-template-columns:1fr}.hero-text{padding:28px}.hero-image img{height:200px}.benefits{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:500px){main{padding:14px 10px}.hero h1{font-size:34px}.hero-text{padding:23px}.benefit{padding:11px;font-size:11px}.photo{height:145px}.details{padding:10px}.details h3{font-size:13px}.desc{min-height:52px}.actions button{font-size:10px}.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.assistant{flex-wrap:wrap}.assistant button{margin-left:0}.story span{display:none}}
+</style>
+</head>
+<body>
+<div class="top">🌿 Support local artisans · Handmade with care · Proudly from our villages</div>
+<header>
+<div class="head">
+<div class="logo">🌾 GaonKart<small>VILLAGE MADE · VILLAGE PROUD</small></div>
+<form class="search" id="searchForm"><input id="searchInput" placeholder="Search matka, wooden spoon, handmade crafts..."><button>Search</button></form>
+<button class="soft" onclick="openLogin()">👤 <span id="loginLabel">Login</span></button>
+<button class="soft" onclick="openCart()">🛒 Cart <b id="cartCount">0</b></button>
+</div>
+<nav id="nav"></nav>
+</header>
+<main>
+<section class="hero">
+<div class="hero-text">
+<span>🌱 LOCAL ROOTS · SMARTER FUTURE</span>
+<h1>Bring the heart of the <span>village</span> to your home.</h1>
+<p>Discover handmade treasures crafted by local village artisans — from earthy clay matkas to beautiful wooden spoons. Every order supports a local family.</p>
+<button class="primary" onclick="scrollProducts()">Explore local products ↗</button>
+</div>
+<div class="hero-image">
+<img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=900&q=80" alt="Handmade pottery" onerror="this.style.display='none'">
+<div class="note">🤝 Made by local hands<br><b>Support village livelihoods</b></div>
+</div>
+</section>
+<div class="benefits">
+<div class="benefit">🧑🏽‍🌾<b>Direct from artisans</b><small>Support local makers</small></div>
+<div class="benefit">🌿<b>Natural materials</b><small>Clay, wood & more</small></div>
+<div class="benefit">📦<b>Easy ordering</b><small>Simple checkout flow</small></div>
+<div class="benefit">💚<b>Village-first</b><small>Celebrate local crafts</small></div>
+</div>
+<section class="section">
+<h2>Shop by category</h2><p class="subtitle">Find something special, made close to home.</p>
+<div class="categories" id="categories"></div>
+</section>
+<section class="section" id="productSection">
+<h2 id="productHeading">Popular village finds</h2><p class="subtitle">Handpicked local products made with skill and care.</p>
+<div class="products" id="products"></div>
+</section>
+<section class="story"><div><h2>Every purchase tells a village story. 🌾</h2><p>GaonKart connects local makers with customers, helping traditional skills reach more homes. Choose handmade, celebrate local, and make a difference with every order.</p></div><span>🏡</span></section>
+<section class="assistant"><span style="font-size:32px">✨</span><div><h3>Smart Village Assistant</h3><p>Get product suggestions based on your needs.</p></div><button class="primary" onclick="openAssistant()">Ask assistant</button></section>
+</main>
+<footer><h2>🌾 GaonKart</h2><p>Celebrating local craft, one order at a time.</p><p>Student project demo · No real payments collected</p><p>© <span id="year"></span> GaonKart</p></footer>
+
+<div class="overlay" id="cartModal"><div class="modal"><div class="modal-head"><h2>Your shopping cart</h2><button class="close" onclick="closeModal('cartModal')">×</button></div><div id="cartContent"></div></div></div>
+<div class="overlay" id="checkoutModal"><div class="modal"><div class="modal-head"><h2>Delivery & checkout</h2><button class="close" onclick="closeModal('checkoutModal')">×</button></div><div id="checkoutWrap"><div id="summary"></div><form id="checkoutForm"><div class="formgrid">
+<div class="field"><label>Full name *</label><input id="customerName" required placeholder="Your name"></div>
+<div class="field"><label>Mobile number *</label><input id="phone" required type="tel" pattern="[0-9+ -]{10,15}" placeholder="Mobile number"></div>
+<div class="field wide"><label>Full delivery address *</label><textarea id="address" required rows="2" placeholder="House, street, village"></textarea></div>
+<div class="field"><label>Village / City *</label><input id="city" required></div>
+<div class="field"><label>PIN code *</label><input id="pin" required pattern="[0-9]{6}" inputmode="numeric" placeholder="6-digit PIN"></div>
+<div class="field wide"><label>Payment method (demo)</label><select id="payment"><option>Cash on Delivery (demo)</option><option>UPI (not connected)</option></select></div>
+</div><p class="hint">Demo only: no payment gateway or server is connected. Do not enter sensitive information.</p><button class="primary full">Place order →</button></form></div>
+<div class="success" id="success"><div class="check">✓</div><h2>Order placed successfully!</h2><p>Thank you for supporting village artisans.</p><div class="orderid" id="orderId"></div><div id="orderDetails"></div><button class="primary full" onclick="finishOrder()">Continue shopping</button></div>
+</div></div>
+<div class="overlay" id="loginModal"><div class="modal"><div class="modal-head"><h2>Welcome to GaonKart</h2><button class="close" onclick="closeModal('loginModal')">×</button></div><form id="loginForm"><div class="field"><label>Your name</label><input id="userName" required placeholder="Enter your name"></div><p class="hint">Demo login only. No password or account is needed.</p><button class="primary full">Continue</button></form></div></div>
+<div class="overlay" id="assistantModal"><div class="modal"><div class="modal-head"><h2>✨ Smart Village Assistant</h2><button class="close" onclick="closeModal('assistantModal')">×</button></div><div class="field"><label>What do you need?</label><select id="need"><option value="kitchen">Kitchen items</option><option value="water">Natural water storage</option><option value="decor">Home decor and gifts</option><option value="wood">Wooden utensils</option><option value="budget">Budget-friendly items</option></select></div><button class="primary full" onclick="recommend()">Recommend products</button><div id="suggestions"></div><p class="hint">This is a rule-based demo assistant, not a connected AI model.</p></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const productsData=[
+{id:1,name:"Traditional Clay Matka",cat:"Clay & Pottery",price:399,old:499,emoji:"🏺",img:"https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80",desc:"Natural earthen water pot for everyday use.",maker:"Ramesh Pottery, local artisan",tag:"Bestseller"},
+{id:2,name:"Handmade Clay Kulhad Set",cat:"Clay & Pottery",price:249,old:299,emoji:"☕",img:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80",desc:"Rustic clay cups for tea and serving.",maker:"Village potters",tag:"Eco-friendly"},
+{id:3,name:"Wooden Cooking Spoon",cat:"Wooden Crafts",price:149,old:199,emoji:"🥄",img:"https://images.unsplash.com/photo-1584736286279-5d85a1f5f6c5?auto=format&fit=crop&w=600&q=80",desc:"Reusable wooden spoon with smooth finish.",maker:"Shankar Woodcraft",tag:"Handmade"},
+{id:4,name:"Wooden Spatula Set",cat:"Wooden Crafts",price:299,old:349,emoji:"🪵",img:"https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",desc:"Useful wooden utensils for your kitchen.",maker:"Local woodworkers",tag:"Popular"},
+{id:5,name:"Terracotta Flower Pot",cat:"Home & Decor",price:199,old:249,emoji:"🪴",img:"https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80",desc:"Earthy planter for a greener home.",maker:"Village artisans",tag:"Natural"},
+{id:6,name:"Handwoven Bamboo Basket",cat:"Bamboo & Baskets",price:279,old:329,emoji:"🧺",img:"https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=600&q=80",desc:"Basket woven from natural fibres.",maker:"Local craft makers",tag:"Village pick"},
+{id:7,name:"Handmade Clay Diya Set",cat:"Clay & Pottery",price:99,old:129,emoji:"🪔",img:"https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80",desc:"Traditional diyas for festivals and decor.",maker:"Local potters",tag:"Value pick"},
+{id:8,name:"Wooden Serving Bowl",cat:"Wooden Crafts",price:349,old:399,emoji:"🥣",img:"https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80",desc:"Rustic serving bowl for your dining table.",maker:"Village wood artisans",tag:"Crafted"},
+{id:9,name:"Natural Jute Shopping Bag",cat:"Daily Essentials",price:179,old:229,emoji:"🛍️",img:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",desc:"Reusable carry bag for daily shopping.",maker:"Local makers",tag:"Reusable"},
+{id:10,name:"Clay Serving Bowl Set",cat:"Clay & Pottery",price:329,old:399,emoji:"🍲",img:"https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?auto=format&fit=crop&w=600&q=80",desc:"Handmade bowls for serving food.",maker:"Village potters",tag:"Handmade"},
+{id:11,name:"Bamboo Desk Organizer",cat:"Bamboo & Baskets",price:229,old:279,emoji:"🎍",img:"https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",desc:"Keep your workspace neat with natural craft.",maker:"Bamboo artisans",tag:"Smart pick"},
+{id:12,name:"Handcrafted Wall Hanging",cat:"Home & Decor",price:459,old:599,emoji:"🧵",img:"https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600&q=80",desc:"Handmade accent for your home.",maker:"Village craft makers",tag:"Gift idea"}
+];
+const cats=[{name:"All",icon:"🛍️"},{name:"Clay & Pottery",icon:"🏺"},{name:"Wooden Crafts",icon:"🥄"},{name:"Home & Decor",icon:"🪴"},{name:"Bamboo & Baskets",icon:"🧺"},{name:"Daily Essentials",icon:"🌿"}];
+let category="All",cart={},currentUser="",lastOrder=null;
+const money=n=>"₹"+n.toLocaleString("en-IN");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function renderCats(){
+document.getElementById("nav").innerHTML=cats.map(c=>`<button class="${category===c.name?'active':''}" onclick="setCategory('${c.name}')">${c.icon} ${c.name}</button>`).join("");
+document.getElementById("categories").innerHTML=cats.slice(1).map(c=>`<button class="category" onclick="setCategory('${c.name}')"><span>${c.icon}</span><b>${c.name}</b></button>`).join("");
+}
+function productImage(p){return `<img src="${p.img}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="emoji">${p.emoji}</span>`}
+function renderProducts(list=null){
+const shown=list||productsData.filter(p=>category==="All"||p.cat===category);
+document.getElementById("products").innerHTML=shown.length?shown.map(p=>`<article class="product"><div class="photo">${productImage(p)}<span class="tag">${p.tag}</span></div><div class="details"><h3>${esc(p.name)}</h3><div class="desc">${esc(p.desc)}</div><div class="maker">👨🏽‍🌾 ${esc(p.maker)}</div><div class="price">${money(p.price)} <span class="old">${money(p.old)}</span></div><div class="actions"><button class="add" onclick="addToCart(${p.id})">+ Add to cart</button><button class="buy" onclick="buyNow(${p.id})">Buy now</button></div></div></article>`).join(""):'<p>No products found. Try another search.</p>';
+document.getElementById("productHeading").textContent=category==="All"?"Popular village finds":category;
+}
+function setCategory(c){category=c;renderCats();renderProducts();scrollProducts()}
+function scrollProducts(){document.getElementById("productSection").scrollIntoView({behavior:"smooth"})}
+document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();const q=document.getElementById("searchInput").value.trim().toLowerCase();category="All";renderCats();renderProducts(productsData.filter(p=>(p.name+" "+p.cat+" "+p.desc+" "+p.maker).toLowerCase().includes(q)));document.getElementById("productHeading").textContent=q?'Search results: '+q:'Popular village finds';scrollProducts()});
+function addToCart(id){cart[id]=(cart[id]||0)+1;updateCart();toast("Added to cart ✓")}
+function buyNow(id){addToCart(id);openCheckout()}
+function updateCart(){document.getElementById("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0)}
+function items(){return Object.entries(cart).map(([id,qty])=>({p:productsData.find(p=>p.id===+id),qty}))}
+function total(){return items().reduce((s,x)=>s+x.p.price*x.qty,0)}
+function openCart(){renderCart();openModal("cartModal")}
+function renderCart(){
+const list=items(),el=document.getElementById("cartContent");
+if(!list.length){el.innerHTML='<div class="empty"><span>🧺</span><h3>Your cart is empty</h3><p>Discover handmade treasures.</p><button class="primary" onclick="closeModal(\\'cartModal\\');scrollProducts()">Explore products</button></div>';return}
+el.innerHTML=list.map(({p,qty})=>`<div class="cartline"><div class="mini">${p.emoji}</div><div><h4>${esc(p.name)}</h4><small>${money(p.price)} each</small><div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><b>${qty}</b><button onclick="changeQty(${p.id},1)">+</button></div></div><div><b>${money(p.price*qty)}</b><br><button onclick="removeItem(${p.id})" style="border:0;background:none;color:#a44;font-size:11px">Remove</button></div></div>`).join("")+`<div class="totals"><span>Subtotal</span><b>${money(total())}</b></div><div class="totals"><span>Delivery</span><b>Free (demo)</b></div><div class="totals total"><span>Total</span><span>${money(total())}</span></div><button class="primary full" onclick="openCheckout()">Proceed to checkout →</button>`;
+}
+function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];updateCart();renderCart()}
+function removeItem(id){delete cart[id];updateCart();renderCart()}
+function openCheckout(){
+if(!items().length){toast("Your cart is empty");return}
+closeModal("cartModal");document.getElementById("checkoutWrap").style.display="block";document.getElementById("success").classList.remove("show");
+document.getElementById("summary").innerHTML='<div class="totals"><b>Order summary</b><b>'+money(total())+'</b></div>'+items().map(x=>`<div class="totals"><span>${esc(x.p.name)} × ${x.qty}</span><b>${money(x.p.price*x.qty)}</b></div>`).join("");
+openModal("checkoutModal");
+}
+document.getElementById("checkoutForm").addEventListener("submit",e=>{
+e.preventDefault();lastOrder={id:"GK"+Date.now().toString().slice(-8),items:items().map(x=>({name:x.p.name,qty:x.qty})),total:total(),name:document.getElementById("customerName").value,city:document.getElementById("city").value,pin:document.getElementById("pin").value,payment:document.getElementById("payment").value};
+document.getElementById("orderId").textContent="Order ID: "+lastOrder.id;
+document.getElementById("orderDetails").innerHTML=`<p>Customer: ${esc(lastOrder.name)}</p><p>Delivery: ${esc(lastOrder.city)} — ${esc(lastOrder.pin)}</p><p>Items: ${lastOrder.items.map(x=>esc(x.name)+" × "+x.qty).join(", ")}</p><p>Total: <b>${money(lastOrder.total)}</b></p><p>Payment: ${esc(lastOrder.payment)}</p><p class="hint">Order status: Placed (demo). Orders are not saved to a server.</p>`;
+document.getElementById("checkoutWrap").style.display="none";document.getElementById("success").classList.add("show");cart={};updateCart();
+});
+function finishOrder(){closeModal("checkoutModal");document.getElementById("checkoutForm").reset();window.scrollTo({top:0,behavior:"smooth"});toast("Thank you for supporting local artisans!")}
+function openLogin(){openModal("loginModal")}
+document.getElementById("loginForm").addEventListener("submit",e=>{e.preventDefault();currentUser=document.getElementById("userName").value.trim();document.getElementById("loginLabel").textContent=esc(currentUser.split(" ")[0]||"Account");closeModal("loginModal");toast("Welcome, "+currentUser+"!")});
+function openAssistant(){document.getElementById("suggestions").innerHTML="";openModal("assistantModal")}
+function recommend(){
+const n=document.getElementById("need").value;
+const ids=n==="water"?[1]:n==="wood"?[3,4,8]:n==="decor"?[5,7,12]:n==="budget"?[7,9,3]:[3,4,10];
+document.getElementById("suggestions").innerHTML="<h3 style='margin-top:15px'>Suggestions for you</h3>"+ids.map(id=>{const p=productsData.find(x=>x.id===id);return `<div class="cartline"><div class="mini">${p.emoji}</div><div><h4>${esc(p.name)}</h4><small>${money(p.price)}</small></div><button class="add" onclick="addToCart(${p.id})">Add</button></div>`}).join("");
+}
+function openModal(id){document.getElementById(id).classList.add("open");document.body.style.overflow="hidden"}
+function closeModal(id){document.getElementById(id).classList.remove("open");if(!document.querySelector(".overlay.open"))document.body.style.overflow=""}
+document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)closeModal(o.id)}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".overlay.open").forEach(o=>closeModal(o.id))});
+let toastTimer;function toast(s){const t=document.getElementById("toast");t.textContent=s;t.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display="none",2500)}
+document.getElementById("year").textContent=new Date().getFullYear();
+renderCats();renderProducts();
+</script>
+</body>
+</html>
