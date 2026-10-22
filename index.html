@@ -1,234 +1,533 @@
-<!-- PRODUCT SECTION -->
-<section class="shop">
-  <h2>🌾 Popular Village Products</h2>
-  <p>गाँव के कारीगरों से सीधे खरीदें</p>
 
-  <div class="product-grid" id="productGrid"></div>
-</section>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GaonKart | Smart Village Marketplace</title>
 
 <style>
-.shop {
-  padding: 20px;
-  background: #f1f3f6;
-  font-family: Arial, sans-serif;
-}
-.shop h2 { margin-bottom: 8px; }
-.shop > p { color: #777; margin-bottom: 18px; }
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.product-card {
-  background: white;
-  border: 1px solid #eee;
-  padding: 8px;
-  overflow: hidden;
-}
-
-.product-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: contain;
-  background: #f5f5f5;
-}
-
-.product-card h3 {
-  font-size: 14px;
-  font-weight: 500;
-  margin: 10px 0;
-}
-
-.product-rating {
-  background: #388e3c;
-  color: white;
-  font-size: 11px;
-  padding: 4px 6px;
-  display: inline-block;
-}
-
-.product-price {
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.old-price {
-  color: #888;
-  text-decoration: line-through;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-.off { color: #388e3c; font-size: 12px; }
-
-.product-card button {
-  width: 100%;
-  padding: 10px 4px;
-  margin-top: 6px;
-  border: 0;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.cart-btn { background: white; color: #2874f0; border: 1px solid #2874f0 !important; }
-.buy-btn { background: #ffca28; color: #222; }
-
-#cartMessage {
-  margin-top: 15px;
-  padding: 12px;
-  background: white;
-}
-
-@media(max-width:800px) {
-  .product-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
-  .product-card img { height: 180px; }
-}
-@media(max-width:520px) {
-  .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
-  .product-card img { height: 155px; }
-  .product-card h3 { font-size: 12px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f1f3f6;color:#212121}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.topbar{background:#155b3c;color:white;text-align:center;padding:9px;font-size:12px}
+header{background:white;position:sticky;top:0;z-index:10;box-shadow:0 2px 5px #0001}
+.header{max-width:1300px;margin:auto;padding:12px;display:flex;align-items:center;gap:15px}
+.logo{font-size:25px;font-weight:bold;color:#176b45;white-space:nowrap}
+.logo small{display:block;font-size:9px;letter-spacing:1px}
+.search{display:flex;flex:1;min-width:100px;border:1px solid #a9c7ff;border-radius:5px;overflow:hidden}
+.search input{width:100%;min-width:0;padding:12px;border:0;outline:none;background:#f5f8ff}
+.search button{border:0;background:#2874f0;color:white;padding:0 16px}
+.headbtn{border:0;background:white;font-weight:bold;white-space:nowrap}
+nav{display:flex;gap:8px;overflow-x:auto;max-width:1300px;margin:auto;padding:0 12px 10px}
+nav button{border:0;background:white;padding:10px;white-space:nowrap}
+nav button.active{color:#2874f0;border-bottom:3px solid #2874f0}
+main{max-width:1300px;margin:auto;padding:14px}
+.hero{display:grid;grid-template-columns:1fr 1fr;background:linear-gradient(120deg,#123d2b,#318558);color:white;min-height:300px;overflow:hidden}
+.hero-text{padding:35px;align-self:center}
+.hero h1{font-size:clamp(28px,4vw,46px);line-height:1.2;margin:14px 0}
+.hero h1 span{color:#dfff9b}
+.hero p{line-height:1.7;color:#e6f3e9;margin-bottom:20px}
+.hero-image{display:grid;place-items:center;padding:20px}
+.hero-image img{width:100%;height:260px;object-fit:cover;border-radius:5px}
+.btn{border:0;border-radius:3px;padding:11px 16px;background:#176b45;color:white;font-weight:bold}
+.hero .btn{background:#e4f5a8;color:#17442d}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.benefit{background:white;padding:15px;font-size:12px}
+.benefit b{display:block;font-size:14px;margin:7px 0}
+.section{margin:22px 0}
+.section-head{background:white;padding:16px;margin-bottom:10px}
+.section-head h2{font-size:22px}
+.subtitle{color:#777;font-size:12px;margin-top:6px}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.category{background:white;border:0;padding:15px 5px;text-align:center}
+.category span{display:block;font-size:34px;margin-bottom:8px}
+.category b{font-size:12px}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.product{background:white;border:1px solid #eee;overflow:hidden;transition:.2s}
+.product:hover{box-shadow:0 4px 15px #0002}
+.photo{height:240px;background:#f1f2f4;position:relative;padding:8px;display:flex;align-items:center;justify-content:center}
+.photo img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.photo .emoji{display:none;font-size:85px}
+.tag{position:absolute;top:10px;left:10px;background:#2874f0;color:white;padding:5px 7px;font-size:10px}
+.details{padding:10px}
+.details h3{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}
+.rating{display:inline-block;background:#388e3c;color:white;border-radius:3px;padding:4px 5px;font-size:11px}
+.reviews{font-size:11px;color:#777}
+.maker{font-size:11px;color:#777;margin:8px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.price{font-size:16px;font-weight:bold;margin:9px 0}
+.old{font-size:11px;font-weight:normal;text-decoration:line-through;color:#888;margin-left:4px}
+.discount{font-size:11px;font-weight:normal;color:#388e3c;margin-left:4px}
+.local{font-size:10px;color:#388e3c;margin:7px 0}
+.actions{display:flex;gap:5px;margin-top:10px}
+.actions button{flex:1;padding:9px 3px;font-size:11px;font-weight:bold;border-radius:3px}
+.add{background:white;border:1px solid #2874f0;color:#2874f0}
+.buy{background:#ffca28;border:1px solid #ffca28;color:#222}
+.story{background:#e4f1df;padding:25px;margin:25px 0;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.story p{font-size:13px;line-height:1.7;margin-top:8px;color:#526356}
+.story span{font-size:55px}
+footer{background:#172337;color:white;padding:28px 18px}
+footer p{font-size:12px;color:#ccc;margin-top:9px}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:30;align-items:center;justify-content:center;padding:15px}
+.overlay.open{display:flex}
+.modal{background:white;border-radius:7px;padding:22px;width:min(560px,100%);max-height:90vh;overflow:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.close{border:0;background:#eee;border-radius:50%;width:32px;height:32px;font-size:21px}
+.cartline{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #eee}
+.mini{width:48px;height:48px;background:#f1f2f4;display:grid;place-items:center;font-size:27px}
+.cartline h4{font-size:13px;margin-bottom:5px}
+.cartline small{font-size:11px;color:#777}
+.qty{display:flex;align-items:center;gap:9px;margin-top:7px}
+.qty button{width:24px;height:24px;background:white;border:1px solid #ddd}
+.remove{border:0;background:white;color:#c33;font-size:11px;margin-top:5px}
+.totals{display:flex;justify-content:space-between;gap:10px;margin:13px 0;font-size:13px}
+.total{font-size:19px;font-weight:bold;border-top:1px solid #ddd;padding-top:14px}
+.full{width:100%;margin-top:12px}
+.empty{text-align:center;padding:25px;color:#777}
+.empty span{font-size:45px}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}
+.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid #ddd;border-radius:4px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wide{grid-column:1/-1}
+.hint{font-size:11px;color:#777;line-height:1.6;margin:10px 0}
+.success{display:none;text-align:center;padding:18px}
+.success.show{display:block}
+.check{font-size:55px;color:#176b45}
+.orderid{background:#edf6e9;padding:12px;margin:15px 0}
+.toast{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#172337;color:white;padding:12px 18px;z-index:50;max-width:90%;text-align:center}
+@media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:200px}}
+@media(max-width:600px){
+ main{padding:8px}
+ .header{flex-wrap:wrap;gap:10px}
+ .search{order:3;flex-basis:100%}
+ .hero{grid-template-columns:1fr}
+ .hero-text{padding:23px}
+ .hero-image img{height:190px}
+ .benefits{grid-template-columns:repeat(2,1fr);gap:6px}
+ .categories{grid-template-columns:repeat(3,1fr);gap:5px}
+ .category{padding:12px 3px}
+ .category span{font-size:27px}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .photo{height:160px;padding:5px}
+ .details{padding:8px}
+ .details h3{font-size:12px}
+ .price{font-size:14px}
+ .old,.discount{font-size:10px;margin-left:2px}
+ .actions{gap:4px}
+ .actions button{font-size:10px;padding:8px 2px}
+ .story span{display:none}
+ .formgrid{grid-template-columns:1fr}
+ .wide{grid-column:auto}
 }
 </style>
+</head>
+
+<body>
+<div class="topbar">🌿 स्थानीय उत्पाद खरीदें · गाँव के कारीगरों को बढ़ावा दें</div>
+
+<header>
+<div class="header">
+  <div class="logo">🌾 GaonKart<small>SMART VILLAGE MARKETPLACE</small></div>
+  <form class="search" id="searchForm">
+    <input id="searchInput" placeholder="Search Matka, Wooden Spoon, Basket...">
+    <button type="submit">🔍</button>
+  </form>
+  <button class="headbtn" onclick="openModal('loginModal')">👤 <span id="loginLabel">Login</span></button>
+  <button class="headbtn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+</div>
+<nav id="nav"></nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-text">
+    <span>🌱 LOCAL ROOTS · SMART FUTURE</span>
+    <h1>गाँव की कला,<br><span>हर घर तक!</span></h1>
+    <p>मिट्टी के मटके, लकड़ी के चम्मच, बाँस की टोकरियाँ और हस्तनिर्मित सामान सीधे स्थानीय कारीगरों से खरीदें।</p>
+    <button class="btn" onclick="scrollProducts()">अभी खरीदें →</button>
+  </div>
+  <div class="hero-image">
+    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80" alt="मिट्टी के बर्तन">
+  </div>
+</section>
+
+<div class="benefits">
+  <div class="benefit">🧑🏽‍🌾<b>स्थानीय कारीगर</b>सीधे गाँव से खरीदें</div>
+  <div class="benefit">🌿<b>प्राकृतिक सामान</b>मिट्टी, लकड़ी और बाँस</div>
+  <div class="benefit">📦<b>आसान ऑर्डर</b>सरल Checkout</div>
+  <div class="benefit">💚<b>गाँव का विकास</b>स्थानीय रोजगार को समर्थन</div>
+</div>
+
+<section class="section">
+  <div class="section-head"><h2>Shop by Category</h2><p class="subtitle">अपनी पसंद की श्रेणी चुनें</p></div>
+  <div class="categories" id="categories"></div>
+</section>
+
+<section class="section" id="productSection">
+  <div class="section-head">
+    <h2 id="productHeading">Popular Village Products</h2>
+    <p class="subtitle">स्थानीय प्रोडक्ट · रेटिंग · कीमत · डिस्काउंट</p>
+  </div>
+  <div class="products" id="products"></div>
+</section>
+
+<section class="story">
+  <div><h2>हर खरीद से गाँव को नई पहचान 🌾</h2><p>स्थानीय उत्पाद खरीदकर कारीगरों की मेहनत और पारंपरिक कला को आगे बढ़ाएँ।</p></div>
+  <span>🏡</span>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>✨ Smart Village Assistant</h2>
+    <p class="subtitle">अपनी जरूरत के अनुसार प्रोडक्ट के सुझाव पाएँ।</p>
+    <button class="btn" style="margin-top:12px" onclick="openAssistant()">Get Suggestions</button>
+  </div>
+</section>
+</main>
+
+<footer>
+  <h2>🌾 GaonKart</h2>
+  <p>स्थानीय कारीगरों के लिए, स्थानीय लोगों द्वारा।</p>
+  <p>AI-Based Smart Village Resource Management System — Demo Project</p>
+  <p>© <span id="year"></span> GaonKart</p>
+</footer>
+
+<!-- CART -->
+<div class="overlay" id="cartModal">
+<div class="modal">
+  <div class="modal-head"><h2>🛒 आपका Cart</h2><button class="close" onclick="closeModal('cartModal')">×</button></div>
+  <div id="cartContent"></div>
+</div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="overlay" id="checkoutModal">
+<div class="modal">
+  <div class="modal-head"><h2>📦 Checkout</h2><button class="close" onclick="closeModal('checkoutModal')">×</button></div>
+  <div id="checkoutWrap">
+    <div id="summary"></div>
+    <form id="checkoutForm">
+      <div class="formgrid">
+        <div class="field"><label>पूरा नाम *</label><input id="customerName" required placeholder="आपका नाम"></div>
+        <div class="field"><label>मोबाइल नंबर *</label><input id="phone" type="tel" pattern="[0-9+ -]{10,15}" required placeholder="मोबाइल नंबर"></div>
+        <div class="field wide"><label>पूरा पता *</label><textarea id="address" required rows="2" placeholder="घर, गली, गाँव"></textarea></div>
+        <div class="field"><label>शहर / गाँव *</label><input id="city" required></div>
+        <div class="field"><label>PIN Code *</label><input id="pin" required pattern="[0-9]{6}" inputmode="numeric" placeholder="6 अंक"></div>
+        <div class="field wide"><label>Payment Method</label>
+          <select id="payment"><option>Cash on Delivery (Demo)</option><option>UPI (Not Connected)</option></select>
+        </div>
+      </div>
+      <p class="hint">यह डेमो प्रोजेक्ट है। वास्तविक भुगतान नहीं होगा।</p>
+      <button class="btn full">Place Order →</button>
+    </form>
+  </div>
+  <div class="success" id="success">
+    <div class="check">✓</div>
+    <h2>ऑर्डर सफलतापूर्वक दर्ज हुआ!</h2>
+    <p>स्थानीय कारीगरों का समर्थन करने के लिए धन्यवाद।</p>
+    <div class="orderid" id="orderId"></div>
+    <div id="orderDetails"></div>
+    <button class="btn full" onclick="finishOrder()">Continue Shopping</button>
+  </div>
+</div>
+</div>
+
+<!-- LOGIN -->
+<div class="overlay" id="loginModal">
+<div class="modal">
+  <div class="modal-head"><h2>Welcome to GaonKart</h2><button class="close" onclick="closeModal('loginModal')">×</button></div>
+  <form id="loginForm">
+    <div class="field"><label>आपका नाम</label><input id="userName" required placeholder="नाम लिखें"></div>
+    <p class="hint">यह केवल Demo Login है। वास्तविक अकाउंट नहीं बनता।</p>
+    <button class="btn full">Continue</button>
+  </form>
+</div>
+</div>
+
+<!-- SMART ASSISTANT -->
+<div class="overlay" id="assistantModal">
+<div class="modal">
+  <div class="modal-head"><h2>✨ Smart Village Assistant</h2><button class="close" onclick="closeModal('assistantModal')">×</button></div>
+  <div class="field">
+    <label>आपको किस तरह का सामान चाहिए?</label>
+    <select id="need">
+      <option value="water">पानी रखने का मटका</option>
+      <option value="wood">लकड़ी के बर्तन</option>
+      <option value="decor">घर की सजावट</option>
+      <option value="budget">कम कीमत वाले सामान</option>
+      <option value="kitchen">रसोई का सामान</option>
+    </select>
+  </div>
+  <button class="btn full" onclick="recommend()">Suggest Products</button>
+  <div id="suggestions"></div>
+  <p class="hint">यह Demo सुझाव प्रणाली है, वास्तविक AI मॉडल नहीं।</p>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-const villageProducts = [
-  {
-    id: 1,
-    name: "Traditional Clay Matka",
-    price: 399,
-    old: 599,
-    rating: 4.5,
-    reviews: "128",
-    image: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 2,
-    name: "Handmade Wooden Spoon",
-    price: 149,
-    old: 249,
-    rating: 4.4,
-    reviews: "86",
-    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 3,
-    name: "Terracotta Flower Pot",
-    price: 199,
-    old: 299,
-    rating: 4.6,
-    reviews: "95",
-    image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 4,
-    name: "Handwoven Bamboo Basket",
-    price: 279,
-    old: 399,
-    rating: 4.3,
-    reviews: "67",
-    image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 5,
-    name: "Traditional Clay Diya Set",
-    price: 99,
-    old: 149,
-    rating: 4.7,
-    reviews: "230",
-    image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 6,
-    name: "Wooden Kitchen Utensils",
-    price: 299,
-    old: 449,
-    rating: 4.5,
-    reviews: "112",
-    image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 7,
-    name: "Natural Handmade Decor",
-    price: 349,
-    old: 499,
-    rating: 4.2,
-    reviews: "53",
-    image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=500&q=80"
-  },
-  {
-    id: 8,
-    name: "Reusable Jute Shopping Bag",
-    price: 179,
-    old: 249,
-    rating: 4.4,
-    reviews: "144",
-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=500&q=80"
-  }
+const productsData = [
+ {id:1,name:"Traditional Clay Matka",cat:"Clay & Pottery",price:399,old:599,emoji:"🏺",img:"https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80",maker:"Ramesh Pottery, Local Artisan",rating:4.5,reviews:128},
+ {id:2,name:"Handmade Clay Kulhad Set",cat:"Clay & Pottery",price:249,old:349,emoji:"☕",img:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80",maker:"Village Potters",rating:4.3,reviews:85},
+ {id:3,name:"Wooden Cooking Spoon",cat:"Wooden Crafts",price:149,old:249,emoji:"🥄",img:"https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",maker:"Shankar Woodcraft",rating:4.6,reviews:213},
+ {id:4,name:"Wooden Spatula Set",cat:"Wooden Crafts",price:299,old:399,emoji:"🪵",img:"https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80",maker:"Local Woodworkers",rating:4.4,reviews:104},
+ {id:5,name:"Terracotta Flower Pot",cat:"Home & Decor",price:199,old:299,emoji:"🪴",img:"https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80",maker:"Village Artisans",rating:4.5,reviews:97},
+ {id:6,name:"Handwoven Bamboo Basket",cat:"Bamboo & Baskets",price:279,old:399,emoji:"🧺",img:"https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=600&q=80",maker:"Local Craft Makers",rating:4.2,reviews:65},
+ {id:7,name:"Handmade Clay Diya Set",cat:"Clay & Pottery",price:99,old:149,emoji:"🪔",img:"https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80",maker:"Local Potters",rating:4.7,reviews:301},
+ {id:8,name:"Wooden Serving Bowl",cat:"Wooden Crafts",price:349,old:449,emoji:"🥣",img:"https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80",maker:"Village Wood Artisans",rating:4.3,reviews:78},
+ {id:9,name:"Natural Jute Shopping Bag",cat:"Daily Essentials",price:179,old:249,emoji:"🛍️",img:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",maker:"Local Makers",rating:4.4,reviews:142},
+ {id:10,name:"Clay Serving Bowl Set",cat:"Clay & Pottery",price:329,old:429,emoji:"🍲",img:"https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?auto=format&fit=crop&w=600&q=80",maker:"Village Potters",rating:4.5,reviews:90},
+ {id:11,name:"Bamboo Desk Organizer",cat:"Bamboo & Baskets",price:229,old:299,emoji:"🎍",img:"https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",maker:"Bamboo Artisans",rating:4.1,reviews:43},
+ {id:12,name:"Handcrafted Wall Decor",cat:"Home & Decor",price:459,old:599,emoji:"🧵",img:"https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=600&q=80",maker:"Village Craft Makers",rating:4.6,reviews:117}
 ];
 
-let villageCart = [];
+const categories=[
+ {name:"All",icon:"🛍️"},
+ {name:"Clay & Pottery",icon:"🏺"},
+ {name:"Wooden Crafts",icon:"🥄"},
+ {name:"Home & Decor",icon:"🪴"},
+ {name:"Bamboo & Baskets",icon:"🧺"},
+ {name:"Daily Essentials",icon:"🌿"}
+];
 
-function renderVillageProducts() {
-  document.getElementById("productGrid").innerHTML =
-    villageProducts.map(p => {
-      const discount = Math.round((p.old - p.price) / p.old * 100);
+let category="All";
+let cart={};
+let currentUser="";
+let toastTimer;
 
-      return `
-        <div class="product-card">
-          <img src="${p.image}"
-               alt="${p.name}"
-               loading="lazy"
-               onerror="this.style.objectFit='contain';this.alt='Product image unavailable'">
+const money=n=>"₹"+n.toLocaleString("en-IN");
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-          <h3>${p.name}</h3>
+function renderCats(){
+ document.getElementById("nav").innerHTML=categories.map(c=>
+ `<button class="${category===c.name?'active':''}" onclick="setCategory('${c.name}')">${c.icon} ${c.name==="All"?"For You":c.name}</button>`
+ ).join("");
 
-          <span class="product-rating">★ ${p.rating}</span>
-          <small> (${p.reviews})</small>
-
-          <p class="product-price">
-            ₹${p.price}
-            <span class="old-price">₹${p.old}</span>
-            <span class="off">${discount}% off</span>
-          </p>
-
-          <small style="color:#388e3c">
-            ✓ Handmade · Local Artisan
-          </small>
-
-          <button class="cart-btn"
-                  onclick="addVillageCart(${p.id})">
-            Add to Cart
-          </button>
-
-          <button class="buy-btn"
-                  onclick="buyVillageProduct(${p.id})">
-            Buy Now
-          </button>
-        </div>
-      `;
-    }).join("");
+ document.getElementById("categories").innerHTML=categories.slice(1).map(c=>
+ `<button class="category" onclick="setCategory('${c.name}')"><span>${c.icon}</span><b>${c.name}</b></button>`
+ ).join("");
 }
 
-function addVillageCart(id) {
-  const product = villageProducts.find(p => p.id === id);
-  villageCart.push(product);
-  document.getElementById("cartMessage").innerHTML =
-    `✅ ${product.name} cart में add हो गया। कुल आइटम: ${villageCart.length}`;
+function productImage(p){
+ return `<img src="${p.img}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="emoji">${p.emoji}</span>`;
 }
 
-function buyVillageProduct(id) {
-  addVillageCart(id);
-  const product = villageProducts.find(p => p.id === id);
-  alert(
-    "Order Preview\\n\\n" + product.name +
-    "\\nPrice: ₹" + product.price +
-    "\\n\\nयह demo है। वास्तविक ऑर्डर के लिए checkout/backend जोड़ें।"
-  );
+function renderProducts(list=null){
+ const shown=list||productsData.filter(p=>category==="All"||p.cat===category);
+ document.getElementById("products").innerHTML=shown.length?shown.map(p=>{
+  const discount=Math.round((p.old-p.price)/p.old*100);
+  return `<article class="product">
+   <div class="photo">${productImage(p)}<span class="tag">${discount}% OFF</span></div>
+   <div class="details">
+    <h3 title="${esc(p.name)}">${esc(p.name)}</h3>
+    <span class="rating">★ ${p.rating}</span> <span class="reviews">(${p.reviews})</span>
+    <div class="maker">👨🏽‍🌾 ${esc(p.maker)}</div>
+    <div class="price">${money(p.price)} <span class="old">${money(p.old)}</span><span class="discount">${discount}% off</span></div>
+    <div class="local">✓ Handmade · Local Village Product</div>
+    <div class="actions">
+     <button class="add" onclick="addToCart(${p.id})">Add to Cart</button>
+     <button class="buy" onclick="buyNow(${p.id})">Buy Now</button>
+    </div>
+   </div>
+  </article>`;
+ }).join(""):'<div style="background:white;padding:20px">कोई प्रोडक्ट नहीं मिला।</div>';
+ document.getElementById("productHeading").textContent=category==="All"?"Popular Village Products":category;
 }
 
-renderVillageProducts();
+function setCategory(c){
+ category=c;
+ renderCats();
+ renderProducts();
+ scrollProducts();
+}
+
+function scrollProducts(){
+ document.getElementById("productSection").scrollIntoView({behavior:"smooth"});
+}
+
+document.getElementById("searchForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const q=document.getElementById("searchInput").value.trim().toLowerCase();
+ category="All";
+ renderCats();
+ renderProducts(productsData.filter(p=>(p.name+" "+p.cat+" "+p.maker).toLowerCase().includes(q)));
+ document.getElementById("productHeading").textContent=q?"Search Results: "+q:"Popular Village Products";
+ scrollProducts();
+});
+
+function addToCart(id){
+ cart[id]=(cart[id]||0)+1;
+ updateCart();
+ toast("Product cart में add हो गया ✓");
+}
+
+function buyNow(id){
+ addToCart(id);
+ openCheckout();
+}
+
+function updateCart(){
+ document.getElementById("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0);
+}
+
+function items(){
+ return Object.entries(cart).map(([id,qty])=>({p:productsData.find(p=>p.id===Number(id)),qty}));
+}
+
+function total(){
+ return items().reduce((sum,x)=>sum+x.p.price*x.qty,0);
+}
+
+function openCart(){
+ renderCart();
+ openModal("cartModal");
+}
+
+function renderCart(){
+ const list=items();
+ const el=document.getElementById("cartContent");
+
+ if(!list.length){
+  el.innerHTML=`<div class="empty"><span>🧺</span><h3>आपका Cart खाली है</h3><p style="margin:10px">अपने पसंदीदा प्रोडक्ट चुनें।</p><button class="btn" onclick="closeModal('cartModal');scrollProducts()">Shop Now</button></div>`;
+  return;
+ }
+
+ el.innerHTML=list.map(({p,qty})=>`
+  <div class="cartline">
+   <div class="mini">${p.emoji}</div>
+   <div><h4>${esc(p.name)}</h4><small>${money(p.price)} प्रति आइटम</small>
+    <div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><b>${qty}</b><button onclick="changeQty(${p.id},1)">+</button></div>
+   </div>
+   <div><b>${money(p.price*qty)}</b><br><button class="remove" onclick="removeItem(${p.id})">Remove</button></div>
+  </div>`).join("")+
+  `<div class="totals"><span>Subtotal</span><b>${money(total())}</b></div>
+   <div class="totals"><span>Delivery</span><b>Free (Demo)</b></div>
+   <div class="totals total"><span>Total</span><span>${money(total())}</span></div>
+   <button class="btn full" onclick="openCheckout()">Proceed to Checkout →</button>`;
+}
+
+function changeQty(id,d){
+ cart[id]=(cart[id]||0)+d;
+ if(cart[id]<=0)delete cart[id];
+ updateCart();
+ renderCart();
+}
+
+function removeItem(id){
+ delete cart[id];
+ updateCart();
+ renderCart();
+}
+
+function openCheckout(){
+ if(!items().length){toast("पहले Cart में प्रोडक्ट जोड़ें");return}
+ closeModal("cartModal");
+ document.getElementById("checkoutWrap").style.display="block";
+ document.getElementById("success").classList.remove("show");
+
+ document.getElementById("summary").innerHTML=
+ `<div class="totals"><b>Order Summary</b><b>${money(total())}</b></div>`+
+ items().map(x=>`<div class="totals"><span>${esc(x.p.name)} × ${x.qty}</span><b>${money(x.p.price*x.qty)}</b></div>`).join("");
+
+ openModal("checkoutModal");
+}
+
+document.getElementById("checkoutForm").addEventListener("submit",e=>{
+ e.preventDefault();
+
+ const order={
+  id:"GK"+Date.now().toString().slice(-8),
+  products:items().map(x=>({name:x.p.name,qty:x.qty})),
+  total:total(),
+  name:document.getElementById("customerName").value,
+  city:document.getElementById("city").value,
+  pin:document.getElementById("pin").value,
+  payment:document.getElementById("payment").value
+ };
+
+ document.getElementById("orderId").textContent="Order ID: "+order.id;
+ document.getElementById("orderDetails").innerHTML=`
+  <p>Customer: ${esc(order.name)}</p>
+  <p>Delivery: ${esc(order.city)} - ${esc(order.pin)}</p>
+  <p>Items: ${order.products.map(x=>esc(x.name)+" × "+x.qty).join(", ")}</p>
+  <p style="margin:10px">Total: <b>${money(order.total)}</b></p>
+  <p>Payment: ${esc(order.payment)}</p>
+  <p class="hint">Order Status: Placed (Demo). ऑर्डर सर्वर पर सेव नहीं हुआ है।</p>`;
+
+ document.getElementById("checkoutWrap").style.display="none";
+ document.getElementById("success").classList.add("show");
+
+ cart={};
+ updateCart();
+});
+
+function finishOrder(){
+ closeModal("checkoutModal");
+ document.getElementById("checkoutForm").reset();
+ window.scrollTo({top:0,behavior:"smooth"});
+ toast("धन्यवाद! फिर से खरीदारी करें।");
+}
+
+document.getElementById("loginForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ currentUser=document.getElementById("userName").value.trim();
+ document.getElementById("loginLabel").textContent=esc(currentUser.split(" ")[0]||"Account");
+ closeModal("loginModal");
+ toast("Welcome, "+currentUser+"!");
+});
+
+function openAssistant(){
+ document.getElementById("suggestions").innerHTML="";
+ openModal("assistantModal");
+}
+
+function recommend(){
+ const need=document.getElementById("need").value;
+ const ids=need==="water"?[1]:need==="wood"?[3,4,8]:need==="decor"?[5,7,12]:need==="budget"?[7,9,3]:[3,4,10];
+
+ document.getElementById("suggestions").innerHTML="<h3 style='margin-top:15px'>आपके लिए सुझाव</h3>"+ids.map(id=>{
+  const p=productsData.find(x=>x.id===id);
+  return `<div class="cartline"><div class="mini">${p.emoji}</div><div><h4>${esc(p.name)}</h4><small>${money(p.price)}</small></div><button class="add" onclick="addToCart(${p.id})">Add</button></div>`;
+ }).join("");
+}
+
+function openModal(id){
+ document.getElementById(id).classList.add("open");
+ document.body.style.overflow="hidden";
+}
+
+function closeModal(id){
+ document.getElementById(id).classList.remove("open");
+ if(!document.querySelector(".overlay.open"))document.body.style.overflow="";
+}
+
+document.querySelectorAll(".overlay").forEach(el=>{
+ el.addEventListener("click",e=>{
+  if(e.target===el)closeModal(el.id);
+ });
+});
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){
+  document.querySelectorAll(".overlay.open").forEach(el=>closeModal(el.id));
+ }
+});
+
+function toast(message){
+ const el=document.getElementById("toast");
+ el.textContent=message;
+ el.style.display="block";
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>el.style.display="none",2500);
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+renderCats();
+renderProducts();
+updateCart();
 </script>
-
-<div id="cartMessage">🛒 आपका Cart खाली है।</div>
+</body>
+</html>
