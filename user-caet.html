@@ -71,7 +71,7 @@ document.getElementById("checkoutForm").addEventListener("submit",function(e){
 e.preventDefault();
 const items=getItems();
 if(!items.length){alert("Pehle cart mein product add karein.");return}
-if(!/^[0-9]{10,15}$/.test(WHATSAPP_NUMBER)){alert("Code mein WHATSAPP_NUMBER ko apne WhatsApp number se replace karein. Sirf digits likhein, jaise 91 ke baad 10 digit mobile number.");return}
+if(!/^[0-9]{10,15}$/.test(whatsapp_number)){alert("Code mein WHATSAPP_NUMBER ko apne WhatsApp number se replace karein. Sirf digits likhein, jaise 91 ke baad 10 digit mobile number.");return}
 const name=document.getElementById("customerName").value.trim();
 const phone=document.getElementById("customerPhone").value.trim();
 const address=document.getElementById("address").value.trim();
