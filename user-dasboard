@@ -1,1 +1,37 @@
 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Orders | GaonKart</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f8faf5;color:#243126}header{background:#245b3d;color:white;padding:17px 5%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}header a{color:white;text-decoration:none;margin:0 7px}.logo{font-size:24px;font-weight:bold}.wrap{max-width:950px;margin:30px auto;padding:0 5%}.order{background:white;border:1px solid #e0e7dc;border-radius:13px;padding:18px;margin:16px 0}.muted{color:#667366}.price{font-weight:bold;color:#245b3d;font-size:20px}.btn{display:inline-block;background:#245b3d;color:white;padding:11px 15px;border:0;border-radius:8px;text-decoration:none;cursor:pointer}footer{text-align:center;padding:24px;background:#1c3828;color:white;margin-top:35px}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="index.html">🌿 GaonKart</a>
+<nav><a href="index.html">Home</a><a href="fruits.html">Fruits</a><a href="about.html">About</a><a href="user-caet.html">🛒 Cart</a><a href="user-dashboard.html">My Orders</a></nav>
+</header>
+<main class="wrap">
+<h1>📦 My Orders</h1>
+<p class="muted">Is browser mein create kiye gaye order records yahan dikhte hain.</p>
+<div id="orders"></div>
+<p><a class="btn" href="index.html">Shop More</a></p>
+</main>
+<footer>© 2026 GaonKart</footer>
+<script>
+function loadOrders(){
+let orders=[];
+try{orders=JSON.parse(localStorage.getItem("gaonOrders")||"[]")}catch(e){}
+const root=document.getElementById("orders");
+if(!orders.length){root.innerHTML="<div class='order'><h3>Abhi koi order nahi hai</h3><p>Products browse karein aur checkout se order create karein.</p><a class='btn' href='index.html'>Browse Products</a></div>";return}
+root.innerHTML=orders.map(o=>`<article class="order"><h2>Order ${escapeHTML(o.orderId||"")}</h2><p class="muted">${escapeHTML(o.date||"")}</p><p><strong>Customer:</strong> ${escapeHTML(o.name||"")}</p><p><strong>Delivery:</strong> ${escapeHTML(o.village||"")} - ${escapeHTML(o.pin||"")}</p><h3>Items</h3><ul>${(o.items||[]).map(p=>`<li>${escapeHTML(p.name)} — ${Number(p.qty)||0} × ₹${Number(p.price)||0}</li>`).join("")}</ul><p class="price">Total: ₹${Number(o.total)||0}</p><p><strong>Website record:</strong> ${escapeHTML(o.status||"Created")}</p><p class="muted">WhatsApp par order send hua ya seller ne accept kiya, website ise automatically verify nahi kar sakti.</p></article>`).join("");
+}
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+loadOrders();
+</script>
+</body>
+</html>
+
