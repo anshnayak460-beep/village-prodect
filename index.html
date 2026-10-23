@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#245b3d">
-  <meta name="description" content="GaonKart - Village Products">
   <title>GaonKart | Village Products</title>
 
   <style>
@@ -39,7 +39,6 @@
     }
 
     .logo { font-size: 25px; font-weight: bold; }
-
     nav { display: flex; flex-wrap: wrap; gap: 15px; }
     nav a { font-size: 14px; font-weight: bold; }
 
@@ -158,7 +157,12 @@
 
     .product-info { padding: 13px; }
     .product-title { min-height: 38px; font-size: 16px; }
-    .price { color: var(--green); font-weight: bold; font-size: 20px; }
+    .price {
+      color: var(--green);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
     .product-actions { display: flex; gap: 7px; flex-wrap: wrap; }
     .product-actions .btn { font-size: 12px; }
 
@@ -267,10 +271,7 @@
       cursor: pointer;
     }
 
-    #ai-send:disabled {
-      opacity: 0.6;
-      cursor: wait;
-    }
+    #ai-send:disabled { opacity: 0.6; cursor: wait; }
 
     @media (max-width: 900px) {
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -296,6 +297,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="fruits.html">Fruits</a>
+      <a href="kapde.html">👕 Kapde</a>
       <a href="about.html">About</a>
       <a href="user-caet.html">🛒 Cart (<span id="cartCount">0</span>)</a>
       <a href="user-dashboard.html">My Orders</a>
@@ -322,9 +324,7 @@
     <h2>Apni pasand ka product chunein</h2>
 
     <div class="tools">
-      <input
-        id="search"
-        type="search"
+      <input id="search" type="search"
         placeholder="🔍 Product search karein..."
         aria-label="Search products">
     </div>
@@ -366,18 +366,13 @@
       <div class="msg bot">
         Namaste! 👋 Welcome to GaonKart.
         Aap kya dhoondh rahe hain?
-        What are you looking for today?
       </div>
     </div>
 
     <form id="ai-form">
-      <input
-        id="ai-input"
-        maxlength="2000"
-        required
+      <input id="ai-input" maxlength="2000" required
         placeholder="Message likho..."
         aria-label="Your message">
-
       <button id="ai-send" type="submit" aria-label="Send message">➤</button>
     </form>
   </section>
@@ -444,7 +439,7 @@
         category: "handmade",
         emoji: "🛍️",
         image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
-        desc: "Reusable bag for everyday shopping."
+        desc: "Reusable shopping bag."
       },
       {
         id: "diya",
@@ -454,17 +449,69 @@
         category: "home",
         emoji: "🪔",
         image: "images/clay-diya-set.png",
-        desc: "Traditional clay diyas made by local artisans."
+        desc: "Traditional clay diyas."
       },
       {
         id: "wooden-spoon",
-        name: "Wooden Spoon",
+        name: "Wooden Kitchen Product",
         price: 70,
         unit: "1 piece",
         category: "home",
         emoji: "🥄",
         image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
-        desc: "Simple wooden kitchen utensil."
+        desc: "Useful traditional kitchen product."
+      },
+
+      /* Tumhari bheji hui 5 nayi product photos */
+      {
+        id: "clay-flower-pots",
+        name: "Decorative Clay Flower Pots",
+        price: 299,
+        unit: "Set of 2",
+        category: "home",
+        emoji: "🪴",
+        image: "images/clay-flower-pots.png",
+        desc: "Hand-decorated clay pots for home and garden."
+      },
+      {
+        id: "clay-pottery-set",
+        name: "Traditional Clay Pottery Set",
+        price: 399,
+        unit: "Assorted set",
+        category: "home",
+        emoji: "🏺",
+        image: "images/clay-pottery-set.png",
+        desc: "Traditional clay bowls, pots and plates."
+      },
+      {
+        id: "wooden-rolling-board",
+        name: "Wooden Roti Board and Rolling Pin",
+        price: 249,
+        unit: "1 set",
+        category: "home",
+        emoji: "🪵",
+        image: "images/wooden-rolling-board.png",
+        desc: "Wooden kitchen board and rolling pin."
+      },
+      {
+        id: "bamboo-baskets",
+        name: "Handwoven Bamboo Baskets",
+        price: 199,
+        unit: "1 basket",
+        category: "handmade",
+        emoji: "🧺",
+        image: "images/bamboo-baskets.png",
+        desc: "Handwoven baskets made from natural bamboo."
+      },
+      {
+        id: "bamboo-trays",
+        name: "Bamboo Serving Trays",
+        price: 149,
+        unit: "Set of 2",
+        category: "handmade",
+        emoji: "🧺",
+        image: "images/bamboo-trays.png",
+        desc: "Traditional bamboo serving trays."
       }
     ];
 
@@ -500,8 +547,8 @@
         (sum, item) => sum + Math.max(0, Number(item.qty) || 0),
         0
       );
-
-      document.getElementById("cartCount").textContent = count;
+      const countElement = document.getElementById("cartCount");
+      if (countElement) countElement.textContent = count;
     }
 
     function addToCart(id) {
@@ -539,10 +586,8 @@
     }
 
     function getVisibleProducts() {
-      const query = document
-        .getElementById("search")
-        .value.trim()
-        .toLowerCase();
+      const query = document.getElementById("search")
+        .value.trim().toLowerCase();
 
       return PRODUCTS.filter(product => {
         const text = (
@@ -562,7 +607,7 @@
       const favs = getFavourites();
 
       grid.replaceChildren();
-      document.getElementById("noResults").hidden = products.length !== 0;
+      document.getElementById("noResults").hidden = products.length > 0;
 
       products.forEach(product => {
         const card = document.createElement("article");
@@ -654,7 +699,7 @@
     renderProducts(PRODUCTS);
     updateCount();
 
-    // AI CHAT: apna asli Render backend URL yahan daalo.
+    /* AI Chat: yahan apna asli Render backend URL lagao */
     const API_URL =
       "https://YOUR-REAL-RENDER-SERVICE.onrender.com/api/chat";
 
@@ -687,18 +732,15 @@
       async event => {
         event.preventDefault();
 
-        const text = input.value.trim();
-        if (!text || send.disabled) return;
+        const message = input.value.trim();
+        if (!message || send.disabled) return;
 
-        addMessage(text, "user");
-        history.push({ role: "user", content: text });
+        addMessage(message, "user");
+        history.push({ role: "user", content: message });
         input.value = "";
         send.disabled = true;
 
-        const loading = addMessage(
-          "Soch raha hoon... / Thinking...",
-          "bot"
-        );
+        const loading = addMessage("Soch raha hoon...", "bot");
 
         try {
           if (API_URL.includes("YOUR-REAL-RENDER-SERVICE")) {
@@ -722,15 +764,12 @@
           }
 
           loading.textContent = data.reply;
-          history.push({
-            role: "assistant",
-            content: data.reply
-          });
+          history.push({ role: "assistant", content: data.reply });
         } catch (error) {
           loading.textContent =
             error.message === "BACKEND_URL_NOT_SET"
-              ? "AI chat setup baaki hai: index.html mein apna asli Render backend URL set karein."
-              : "Connection nahi ho raha. Backend URL, Render service aur CORS settings check karein.";
+              ? "AI setup baaki hai. Apna asli Render URL index.html mein lagao."
+              : "AI connect nahi hua. Backend URL, service aur CORS settings check karo.";
 
           history.pop();
           console.error("GaonKart AI error:", error);
