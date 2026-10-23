@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GaonKart - Kapde</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f8f4;
+      color: #243329;
+    }
+
+    header {
+      background: #245b3d;
+      color: white;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header h2 { margin: 0; }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      margin-left: 12px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 45px 15px;
+      background: #e3efdf;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin: 0 0 12px;
+      color: #245b3d;
+    }
+
+    .hero p { line-height: 1.7; }
+
+    .search {
+      width: min(90%, 500px);
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .categories {
+      text-align: center;
+      padding: 20px 10px 0;
+    }
+
+    .categories button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 20px;
+      background: #e3efdf;
+      color: #245b3d;
+      cursor: pointer;
+    }
+
+    .categories button.active {
+      background: #245b3d;
+      color: white;
+    }
+
+    main { padding: 25px 5%; }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px #00000012;
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    .info { padding: 14px; }
+
+    .info h3 { margin: 5px 0 10px; }
+
+    .price {
+      font-size: 21px;
+      font-weight: bold;
+      color: #245b3d;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 12px;
+      background: #245b3d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      background: #19442d;
+      color: white;
+      padding: 22px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      .products { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .card img { height: 150px; }
+      .info { padding: 9px; }
+      .hero h1 { font-size: 29px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h2>🌿 GaonKart</h2>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="kapde.html">Kapde</a>
+      <a href="user-caet.html">Cart</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>👗 Kapdon ki Duniya</h1>
+    <p>Apni pasand ke kapde chunein — Ladies, Men's aur Kids Wear!</p>
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="Kapde search karein..."
+      aria-label="Kapde search karein">
+  </section>
+
+  <section class="categories">
+    <button class="active" data-category="all">Sabhi</button>
+    <button data-category="ladies">Ladies Wear</button>
+    <button data-category="men">Men's Wear</button>
+    <button data-category="kids">Kids Wear</button>
+  </section>
+
+  <main>
+    <h2>Hamare Kapde 👕</h2>
+    <div class="products" id="products"></div>
+    <p id="empty" hidden>Koi product nahi mila.</p>
+  </main>
+
+  <footer>
+    <h3>🌿 GaonKart</h3>
+    <p>Local products, happy customers!</p>
+    <p>© 2026 GaonKart</p>
+  </footer>
+
+  <script>
+    const items = [
+      {
+        id: "kurti",
+        name: "Ladies Kurti",
+        price: 399,
+        category: "ladies",
+        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e3?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: "dress",
+        name: "Ladies Dress",
+        price: 599,
+        category: "ladies",
+        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: "shirt",
+        name: "Men's Shirt",
+        price: 449,
+        category: "men",
+        image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: "tshirt",
+        name: "Men's T-Shirt",
+        price: 299,
+        category: "men",
+        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: "kidswear",
+        name: "Kids Outfit",
+        price: 349,
+        category: "kids",
+        image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: "kidstshirt",
+        name: "Kids T-Shirt",
+        price: 199,
+        category: "kids",
+        image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    let category = "all";
+
+    function render() {
+      const query = document.getElementById("search")
+        .value.toLowerCase().trim();
+
+      const visible = items.filter(item =>
+        (category === "all" || item.category === category) &&
+        item.name.toLowerCase().includes(query)
+      );
+
+      const container = document.getElementById("products");
+      container.replaceChildren();
+      document.getElementById("empty").hidden = visible.length > 0;
+
+      visible.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.name;
+        img.loading = "lazy";
+
+        const info = document.createElement("div");
+        info.className = "info";
+
+        const title = document.createElement("h3");
+        title.textContent = item.name;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent = "₹" + item.price;
+
+        const button = document.createElement("button");
+        button.className = "btn";
+        button.textContent = "Add to Cart";
+        button.onclick = () => addToCart(item);
+
+        info.append(title, price, button);
+        card.append(img, info);
+        container.append(card);
+      });
+    }
+
+    function addToCart(item) {
+      try {
+        const cart = JSON.parse(localStorage.getItem("gaonCart") || "[]");
+        const existing = cart.find(p => p.id === item.id);
+
+        if (existing) {
+          existing.qty = (Number(existing.qty) || 0) + 1;
+        } else {
+          cart.push({ id: item.id, qty: 1 });
+        }
+
+        localStorage.setItem("gaonCart", JSON.stringify(cart));
+        alert(item.name + " cart mein add ho gaya!");
+      } catch {
+        alert("Cart save nahi ho saka. Dobara try karein.");
+      }
+    }
+
+    document.getElementById("search").addEventListener("input", render);
+
+    document.querySelectorAll("[data-category]").forEach(button => {
+      button.addEventListener("click", () => {
+        category = button.dataset.category;
+
+        document.querySelectorAll("[data-category]").forEach(b => {
+          b.classList.toggle("active", b === button);
+        });
+
+        render();
+      });
+    });
+
+    render();
+  </script>
+</body>
+</html>
