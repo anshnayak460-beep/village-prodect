@@ -1,544 +1,745 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#245b3d">
-<title>Product Details | GaonKart</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#245b3d">
+  <meta name="description" content="GaonKart - Village Products">
+  <title>GaonKart | Village Products</title>
 
-<style>
-:root {
-  --green: #245b3d;
-  --dark: #19442d;
-  --bg: #f7f8f4;
-  --border: #e0e7dc;
-  --pink: #d4149b;
-}
+  <style>
+    :root {
+      --green: #245b3d;
+      --dark: #19442d;
+      --bg: #f7f8f4;
+      --border: #e0e7dc;
+    }
 
-* { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: #172b22;
-  font-family: Arial, sans-serif;
-}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: #172b22;
+    }
 
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
 
-.top {
-  background: var(--green);
-  color: white;
-  padding: 16px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
+    header {
+      background: var(--green);
+      color: white;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
 
-.logo { font-size: 24px; font-weight: bold; }
+    .logo { font-size: 25px; font-weight: bold; }
 
-.top nav {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  font-size: 14px;
-  font-weight: bold;
-}
+    nav { display: flex; flex-wrap: wrap; gap: 15px; }
+    nav a { font-size: 14px; font-weight: bold; }
 
-.crumb {
-  max-width: 1400px;
-  margin: 22px auto 14px;
-  padding: 0 24px;
-  color: #6d7d70;
-  font-size: 14px;
-}
+    .hero {
+      padding: 45px 6%;
+      background: linear-gradient(120deg, #e4f1d9, #f8edcf);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
 
-.product {
-  max-width: 1400px;
-  margin: 0 auto 28px;
-  padding: 22px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 28px;
-}
+    .hero-content { flex: 1 1 300px; }
 
-.gallery {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 14px;
-  min-width: 0;
-}
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      color: #1d402c;
+      margin: 0;
+    }
 
-.thumbs {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+    .hero p { line-height: 1.8; }
 
-.thumb {
-  height: 68px;
-  width: 64px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: white;
-  padding: 4px;
-  overflow: hidden;
-}
+    .hero img {
+      width: min(100%, 410px);
+      height: 250px;
+      object-fit: cover;
+      border-radius: 18px;
+    }
 
-.thumb.active { border: 2px solid var(--pink); }
+    .btn {
+      display: inline-block;
+      padding: 11px 15px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--green);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-.thumb img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
+    .wrap {
+      padding: 30px 4%;
+      max-width: 1600px;
+      margin: auto;
+    }
 
-.heroimg {
-  min-height: 390px;
-  height: 100%;
-  max-height: 560px;
-  border-radius: 12px;
-  background: #f0f0e9;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
+    .tools input {
+      width: 100%;
+      max-width: 450px;
+      padding: 13px;
+      border: 1px solid #d8e0d5;
+      border-radius: 10px;
+      background: white;
+      margin: 15px 0;
+    }
 
-.heroimg img {
-  width: 100%;
-  height: 100%;
-  max-height: 560px;
-  object-fit: cover;
-}
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0 25px;
+    }
 
-.details { padding: 10px 0; min-width: 0; }
+    .categories button {
+      padding: 10px 15px;
+      border: 0;
+      border-radius: 25px;
+      cursor: pointer;
+      background: #e7efe2;
+      color: var(--green);
+    }
 
-.eyebrow {
-  color: #6c7c70;
-  font-size: 14px;
-  margin: 4px 0 24px;
-}
+    .categories button.active {
+      background: var(--green);
+      color: white;
+    }
 
-.details h1 {
-  font-size: clamp(25px, 3vw, 36px);
-  margin: 0 0 18px;
-  color: #193c29;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
 
-.price {
-  font-size: 28px;
-  font-weight: bold;
-  color: var(--green);
-  margin: 12px 0;
-}
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px #192a1610;
+    }
 
-.unit { color: #53675a; margin: 0 0 22px; }
-.desc { line-height: 1.6; color: #425449; }
+    .product-image-wrap {
+      height: 175px;
+      position: relative;
+      background: #eef0e9;
+    }
 
-.stock {
-  background: #eef5eb;
-  border-radius: 9px;
-  padding: 12px;
-  margin: 18px 0;
-  font-size: 14px;
-}
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 22px 0;
-}
+    .favourite {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      border: 0;
+      border-radius: 50%;
+      background: white;
+      padding: 8px;
+      color: #ed1745;
+      cursor: pointer;
+    }
 
-.btn {
-  border: 1px solid var(--green);
-  border-radius: 9px;
-  padding: 13px 18px;
-  font-weight: bold;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
+    .product-info { padding: 13px; }
+    .product-title { min-height: 38px; font-size: 16px; }
+    .price { color: var(--green); font-weight: bold; font-size: 20px; }
+    .product-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    .product-actions .btn { font-size: 12px; }
 
-.primary { background: var(--green); color: white; }
-.outline { background: white; color: var(--green); }
-.btn:hover { filter: brightness(.96); }
+    footer {
+      margin-top: 35px;
+      padding: 28px;
+      text-align: center;
+      background: #1c3828;
+      color: white;
+    }
 
-.panel {
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 18px;
-  margin-top: 16px;
-}
+    /* AI Chat */
+    #ai-button {
+      position: fixed;
+      right: 18px;
+      bottom: 20px;
+      z-index: 9999;
+      border: 0;
+      border-radius: 35px;
+      padding: 14px 19px;
+      background: #087f4f;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 16px #0003;
+    }
 
-.panel h2 { font-size: 19px; margin: 0 0 18px; }
+    #ai-panel {
+      position: fixed;
+      right: 14px;
+      bottom: 82px;
+      z-index: 9999;
+      width: min(360px, calc(100vw - 28px));
+      height: 470px;
+      max-height: calc(100dvh - 110px);
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 5px 25px #0003;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-.highlights {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
+    #ai-panel.open { display: flex; }
 
-.label { font-size: 12px; color: #6d7d70; margin-bottom: 5px; }
-.value { font-size: 15px; }
+    .ai-header {
+      background: #087f4f;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.panel details summary {
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 18px;
-}
+    #ai-close {
+      background: none;
+      border: 0;
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
 
-.seller {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+    #ai-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-.seller strong { font-size: 17px; }
-.note { font-size: 13px; color: #68786b; }
+    .msg {
+      padding: 10px 12px;
+      border-radius: 14px;
+      max-width: 90%;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  background: #1c3828;
-  color: white;
-  margin-top: 32px;
-}
+    .bot { background: #f0f2f0; align-self: flex-start; }
+    .user { background: #d9f4e4; align-self: flex-end; }
 
-@media (max-width: 760px) {
-  .crumb { margin-top: 15px; }
+    #ai-form {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      border-top: 1px solid #eee;
+    }
 
-  .product {
-    margin: 0 12px 20px;
-    padding: 14px;
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
+    #ai-input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      padding: 12px;
+    }
 
-  .gallery {
-    grid-template-columns: 54px minmax(0, 1fr);
-    gap: 9px;
-  }
+    #ai-send {
+      background: #087f4f;
+      color: white;
+      border: 0;
+      border-radius: 50%;
+      width: 44px;
+      cursor: pointer;
+    }
 
-  .thumb { width: 54px; height: 58px; }
+    #ai-send:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
 
-  .heroimg { min-height: 280px; max-height: 420px; }
-  .details { padding: 0; }
-  .eyebrow { margin-bottom: 12px; }
-  .top { padding: 14px 5%; }
-  .top nav { gap: 12px; }
-}
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
 
-@media (max-width: 380px) {
-  .gallery { grid-template-columns: 44px minmax(0, 1fr); }
-  .thumb { width: 44px; height: 48px; }
-  .heroimg { min-height: 230px; }
-  .btn { flex: 1; padding: 12px 10px; }
-  .highlights { gap: 12px; }
-}
-</style>
+    @media (max-width: 600px) {
+      header { align-items: flex-start; }
+      nav { gap: 12px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .product-image-wrap { height: 145px; }
+      .product-info { padding: 10px; }
+    }
+
+    @media (max-width: 350px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <a class="logo" href="index.html">🌿 GaonKart</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="fruits.html">Fruits</a>
+      <a href="about.html">About</a>
+      <a href="user-caet.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+      <a href="user-dashboard.html">My Orders</a>
+    </nav>
+  </header>
 
-<header class="top">
-  <a class="logo" href="index.html">🌿 GaonKart</a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="index.html#products">Shop Products</a>
-    <a href="user-caet.html">🛒 Cart (<span id="cartCount">0</span>)</a>
-    <a href="user-dashboard.html">My Orders</a>
-  </nav>
-</header>
-
-<div class="crumb">
-  <a href="index.html">Home</a> /
-  <span id="crumbName">Product Details</span>
-</div>
-
-<main class="product">
-
-  <section class="gallery" aria-label="Product photos">
-    <div class="thumbs" id="thumbs"></div>
-    <div class="heroimg">
-      <img id="mainImage" alt="Product photo">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Gaon ke products,<br>seedhe aapke ghar!</h1>
+      <p>
+        Local farmers aur village artisans ke products discover karein.
+        Fresh fruits, handmade items aur gaon ki quality ko support karein.
+      </p>
+      <a class="btn" href="#products">Shop Now →</a>
+      <a class="btn" href="about.html">Hamare baare mein</a>
     </div>
+
+    <img
+      src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85"
+      alt="Green village fields">
   </section>
 
-  <section class="details">
-    <p class="eyebrow">GAONKART · LOCAL VILLAGE PRODUCTS</p>
+  <main class="wrap">
+    <h2>Apni pasand ka product chunein</h2>
 
-    <h1 id="name">Product</h1>
-    <div class="price" id="price">₹0</div>
-    <p class="unit" id="unit"></p>
-    <p class="desc" id="desc"></p>
-
-    <div class="stock">
-      ✓ Local artisan product<br>
-      📦 Availability aur delivery details seller se
-      order ke waqt confirm karein.
+    <div class="tools">
+      <input
+        id="search"
+        type="search"
+        placeholder="🔍 Product search karein..."
+        aria-label="Search products">
     </div>
 
-    <div class="actions">
-      <button class="btn outline" id="addBtn">
-        🛒 Add to Cart
-      </button>
-      <button class="btn primary" id="buyBtn">
-        » Buy Now
-      </button>
+    <div class="categories">
+      <button class="active" data-filter="all">All Products</button>
+      <button data-filter="fruits">🍎 Fruits</button>
+      <button data-filter="handmade">🧺 Handmade</button>
+      <button data-filter="home">🏡 Home Products</button>
     </div>
 
-    <p class="note">
-      Gaon ke local sellers aur artisans ko support karein.
-    </p>
+    <h2 id="products">Popular Products</h2>
+    <p>Fresh products, best quality, at your doorstep.</p>
 
-    <section class="panel">
-      <h2>Product Highlights</h2>
+    <div class="grid" id="productGrid"></div>
+    <p id="noResults" hidden>Koi product nahi mila.</p>
+  </main>
 
-      <div class="highlights">
-        <div>
-          <div class="label">Product Name</div>
-          <div class="value" id="highlightName"></div>
-        </div>
+  <footer>
+    <strong>🌿 GaonKart</strong>
+    <p>© 2026 GaonKart · Local Village Products Marketplace</p>
+  </footer>
 
-        <div>
-          <div class="label">Brand</div>
-          <div class="value">GaonKart Local</div>
-        </div>
+  <!-- AI Chat Window -->
+  <button id="ai-button" type="button">🤖 GaonKart AI</button>
 
-        <div>
-          <div class="label">Quantity</div>
-          <div class="value" id="highlightUnit"></div>
-        </div>
-
-        <div>
-          <div class="label">Category</div>
-          <div class="value" id="category"></div>
-        </div>
-      </div>
-
-      <details>
-        <summary>Additional Details</summary>
-        <p id="additional"></p>
-        <p>Delivery timing aur final availability seller se confirm hogi.</p>
-      </details>
-    </section>
-
-    <section class="panel seller">
+  <section id="ai-panel" aria-label="GaonKart AI chat">
+    <header class="ai-header">
       <div>
-        <h2>Sold By</h2>
-        <strong>GaonKart Local Seller</strong>
-        <p class="note">Local products · Handmade with care</p>
+        <strong>🤖 GaonKart AI</strong>
+        <div style="font-size:12px;margin-top:4px">
+          Hindi • English • Hinglish
+        </div>
       </div>
-      <a class="btn outline" href="index.html">View Shop</a>
-    </section>
+      <button id="ai-close" type="button" aria-label="Close chat">×</button>
+    </header>
+
+    <div id="ai-messages" aria-live="polite">
+      <div class="msg bot">
+        Namaste! 👋 Welcome to GaonKart.
+        Aap kya dhoondh rahe hain?
+        What are you looking for today?
+      </div>
+    </div>
+
+    <form id="ai-form">
+      <input
+        id="ai-input"
+        maxlength="2000"
+        required
+        placeholder="Message likho..."
+        aria-label="Your message">
+
+      <button id="ai-send" type="submit" aria-label="Send message">➤</button>
+    </form>
   </section>
 
-</main>
+  <script>
+    "use strict";
 
-<footer>
-  <strong>🌿 GaonKart</strong>
-  <p>© 2026 GaonKart · Local Village Products Marketplace</p>
-</footer>
+    const PRODUCTS = [
+      {
+        id: "mango",
+        name: "Fresh Mango",
+        price: 120,
+        unit: "1 kg",
+        category: "fruits",
+        emoji: "🥭",
+        image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80",
+        desc: "Seasonal mangoes from local growers."
+      },
+      {
+        id: "banana",
+        name: "Fresh Bananas",
+        price: 50,
+        unit: "1 dozen",
+        category: "fruits",
+        emoji: "🍌",
+        image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80",
+        desc: "Fresh bananas for everyday use."
+      },
+      {
+        id: "apple",
+        name: "Fresh Apples",
+        price: 160,
+        unit: "1 kg",
+        category: "fruits",
+        emoji: "🍎",
+        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
+        desc: "Crisp apples, carefully packed."
+      },
+      {
+        id: "claypot",
+        name: "Handmade Clay Matka",
+        price: 250,
+        unit: "1 piece",
+        category: "handmade",
+        emoji: "🏺",
+        image: "images/clay-matka.png",
+        desc: "Traditional handmade clay water pot."
+      },
+      {
+        id: "basket",
+        name: "Bamboo Basket",
+        price: 180,
+        unit: "1 piece",
+        category: "handmade",
+        emoji: "🧺",
+        image: "images/bamboo-basket.png",
+        desc: "Traditional handwoven bamboo basket."
+      },
+      {
+        id: "jute",
+        name: "Jute Shopping Bag",
+        price: 100,
+        unit: "1 piece",
+        category: "handmade",
+        emoji: "🛍️",
+        image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
+        desc: "Reusable bag for everyday shopping."
+      },
+      {
+        id: "diya",
+        name: "Clay Diya Set",
+        price: 80,
+        unit: "Set of 6",
+        category: "home",
+        emoji: "🪔",
+        image: "images/clay-diya-set.png",
+        desc: "Traditional clay diyas made by local artisans."
+      },
+      {
+        id: "wooden-spoon",
+        name: "Wooden Spoon",
+        price: 70,
+        unit: "1 piece",
+        category: "home",
+        emoji: "🥄",
+        image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+        desc: "Simple wooden kitchen utensil."
+      }
+    ];
 
-<script>
-const products = {
-  mango: {
-    name: 'Fresh Mango',
-    price: 120,
-    unit: '1 kg',
-    category: 'Fruits',
-    emoji: '🥭',
-    image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=900&q=85',
-    desc: 'Seasonal mangoes from local growers.'
-  },
+    const CART_KEY = "gaonCart";
+    const FAV_KEY = "gaonFavourites";
+    let currentCategory = "all";
 
-  banana: {
-    name: 'Fresh Bananas',
-    price: 50,
-    unit: '1 dozen',
-    category: 'Fruits',
-    emoji: '🍌',
-    image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=900&q=85',
-    desc: 'Fresh bananas for everyday use.'
-  },
+    function readStorage(key, fallback) {
+      try {
+        return JSON.parse(
+          localStorage.getItem(key) || JSON.stringify(fallback)
+        );
+      } catch {
+        return fallback;
+      }
+    }
 
-  apple: {
-    name: 'Fresh Apples',
-    price: 160,
-    unit: '1 kg',
-    category: 'Fruits',
-    emoji: '🍎',
-    image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=900&q=85',
-    desc: 'Crisp apples, carefully packed.'
-  },
+    function getCart() {
+      const cart = readStorage(CART_KEY, []);
+      return Array.isArray(cart) ? cart : [];
+    }
 
-  claypot: {
-    name: 'Handmade Clay Matka',
-    price: 250,
-    unit: '1 piece',
-    category: 'Handmade',
-    emoji: '🏺',
-    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=900&q=85',
-    desc: 'Traditional handmade clay water pot.'
-  },
+    function saveCart(cart) {
+      try {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      } catch {
+        alert("Cart save nahi ho saka.");
+      }
+    }
 
-  basket: {
-    name: 'Bamboo Basket',
-    price: 180,
-    unit: '1 piece',
-    category: 'Handmade',
-    emoji: '🧺',
-    image: 'https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=900&q=85',
-    desc: 'Traditional handwoven bamboo basket.'
-  },
+    function updateCount() {
+      const count = getCart().reduce(
+        (sum, item) => sum + Math.max(0, Number(item.qty) || 0),
+        0
+      );
 
-  jute: {
-    name: 'Jute Shopping Bag',
-    price: 100,
-    unit: '1 piece',
-    category: 'Handmade',
-    emoji: '🛍️',
-    image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=85',
-    desc: 'Reusable bag for everyday shopping.'
-  },
+      document.getElementById("cartCount").textContent = count;
+    }
 
-  diya: {
-    name: 'Clay Diya Set',
-    price: 80,
-    unit: 'Set of 6',
-    category: 'Home',
-    emoji: '🪔',
-    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=85',
-    desc: 'Traditional clay diyas made by local artisans.'
-  },
+    function addToCart(id) {
+      const cart = getCart();
+      const item = cart.find(product => product.id === id);
 
-  'wooden-spoon': {
-    name: 'Wooden Spoon',
-    price: 70,
-    unit: '1 piece',
-    category: 'Home',
-    emoji: '🥄',
-    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=85',
-    desc: 'Simple wooden kitchen utensil.'
-  }
-};
+      if (item) {
+        item.qty = (Number(item.qty) || 0) + 1;
+      } else {
+        cart.push({ id, qty: 1 });
+      }
 
-const id = new URLSearchParams(location.search).get('id') || 'diya';
-const p = products[id] || products.diya;
+      saveCart(cart);
+      updateCount();
+      alert("Product cart mein add ho gaya!");
+    }
 
-document.title = p.name + ' | GaonKart';
+    function getFavourites() {
+      const favs = readStorage(FAV_KEY, []);
+      return Array.isArray(favs) ? favs : [];
+    }
 
-document.getElementById('crumbName').textContent = p.name;
-document.getElementById('name').textContent = p.name;
-document.getElementById('price').textContent = '₹' + p.price;
-document.getElementById('unit').textContent = p.unit;
-document.getElementById('desc').textContent = p.desc;
-document.getElementById('highlightName').textContent = p.name;
-document.getElementById('highlightUnit').textContent = p.unit;
-document.getElementById('category').textContent = p.category;
-document.getElementById('additional').textContent = p.desc;
+    function toggleFavourite(id) {
+      let favs = getFavourites();
 
-const mainImage = document.getElementById('mainImage');
-mainImage.src = p.image;
-mainImage.alt = p.name;
+      favs = favs.includes(id)
+        ? favs.filter(item => item !== id)
+        : [...favs, id];
 
-mainImage.onerror = () => {
-  mainImage.onerror = null;
-  mainImage.style.display = 'none';
+      try {
+        localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+      } catch {}
 
-  document.querySelector('.heroimg').insertAdjacentHTML(
-    'beforeend',
-    '<span style="font-size:100px">' + p.emoji + '</span>'
-  );
-};
+      renderProducts(getVisibleProducts());
+    }
 
-const thumbs = document.getElementById('thumbs');
+    function getVisibleProducts() {
+      const query = document
+        .getElementById("search")
+        .value.trim()
+        .toLowerCase();
 
-[p.image, p.image, p.image, p.image].forEach((url, i) => {
-  const b = document.createElement('button');
-  b.className = 'thumb' + (i === 0 ? ' active' : '');
-  b.type = 'button';
-  b.setAttribute('aria-label', 'Product photo ' + (i + 1));
+      return PRODUCTS.filter(product => {
+        const text = (
+          product.name + " " +
+          product.category + " " +
+          product.desc
+        ).toLowerCase();
 
-  const im = document.createElement('img');
-  im.src = url;
-  im.alt = p.name + ' ' + (i + 1);
+        return text.includes(query) &&
+          (currentCategory === "all" ||
+           product.category === currentCategory);
+      });
+    }
 
-  im.onerror = () => {
-    im.style.display = 'none';
-    b.textContent = p.emoji;
-  };
+    function renderProducts(products) {
+      const grid = document.getElementById("productGrid");
+      const favs = getFavourites();
 
-  b.appendChild(im);
+      grid.replaceChildren();
+      document.getElementById("noResults").hidden = products.length !== 0;
 
-  b.onclick = () => {
-    mainImage.style.display = 'block';
-    mainImage.src = url;
+      products.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "card";
 
-    document.querySelectorAll('.thumb').forEach(x => {
-      x.classList.remove('active');
+        const wrap = document.createElement("div");
+        wrap.className = "product-image-wrap";
+
+        const img = document.createElement("img");
+        img.className = "product-image";
+        img.src = product.image;
+        img.alt = product.name;
+        img.loading = "lazy";
+
+        img.onerror = () => {
+          img.onerror = null;
+          img.style.display = "none";
+
+          const fallback = document.createElement("span");
+          fallback.textContent = product.emoji;
+          fallback.style.cssText =
+            "display:grid;place-items:center;height:100%;font-size:60px";
+
+          wrap.prepend(fallback);
+        };
+
+        const fav = document.createElement("button");
+        fav.className = "favourite";
+        fav.type = "button";
+        fav.textContent = favs.includes(product.id) ? "♥" : "♡";
+        fav.setAttribute("aria-label", "Toggle favourite");
+        fav.onclick = () => toggleFavourite(product.id);
+
+        wrap.append(img, fav);
+
+        const info = document.createElement("div");
+        info.className = "product-info";
+
+        const title = document.createElement("h3");
+        title.className = "product-title";
+        title.textContent = product.emoji + " " + product.name;
+
+        const unit = document.createElement("p");
+        unit.textContent = product.unit;
+
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent = "₹" + product.price;
+
+        const actions = document.createElement("div");
+        actions.className = "product-actions";
+
+        const details = document.createElement("a");
+        details.className = "btn";
+        details.href =
+          "descripation-page.html?id=" +
+          encodeURIComponent(product.id);
+        details.textContent = "Details";
+
+        const add = document.createElement("button");
+        add.className = "btn";
+        add.type = "button";
+        add.textContent = "Add to Cart";
+        add.onclick = () => addToCart(product.id);
+
+        actions.append(details, add);
+        info.append(title, unit, price, actions);
+        card.append(wrap, info);
+        grid.appendChild(card);
+      });
+    }
+
+    document.getElementById("search").addEventListener("input", () => {
+      renderProducts(getVisibleProducts());
     });
 
-    b.classList.add('active');
-  };
+    document.querySelectorAll("[data-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        currentCategory = button.dataset.filter;
 
-  thumbs.appendChild(b);
-});
+        document.querySelectorAll("[data-filter]").forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
 
-function cart() {
-  try {
-    const c = JSON.parse(localStorage.getItem('gaonCart') || '[]');
-    return Array.isArray(c) ? c : [];
-  } catch {
-    return [];
-  }
-}
+        renderProducts(getVisibleProducts());
+      });
+    });
 
-function count() {
-  document.getElementById('cartCount').textContent =
-    cart().reduce((s, x) => s + (Number(x.qty) || 0), 0);
-}
+    renderProducts(PRODUCTS);
+    updateCount();
 
-function add() {
-  const c = cart();
-  const item = c.find(x => x.id === id);
+    // AI CHAT: apna asli Render backend URL yahan daalo.
+    const API_URL =
+      "https://YOUR-REAL-RENDER-SERVICE.onrender.com/api/chat";
 
-  if (item) {
-    item.qty = (Number(item.qty) || 0) + 1;
-  } else {
-    c.push({ id: id, qty: 1 });
-  }
+    const panel = document.getElementById("ai-panel");
+    const messagesBox = document.getElementById("ai-messages");
+    const input = document.getElementById("ai-input");
+    const send = document.getElementById("ai-send");
+    const history = [];
 
-  try {
-    localStorage.setItem('gaonCart', JSON.stringify(c));
-  } catch (error) {
-    alert('Cart save nahi ho saka. Browser storage check karein.');
-  }
+    document.getElementById("ai-button").onclick = () => {
+      panel.classList.add("open");
+      input.focus();
+    };
 
-  count();
-  alert(p.name + ' cart mein add ho gaya!');
-}
+    document.getElementById("ai-close").onclick = () => {
+      panel.classList.remove("open");
+    };
 
-document.getElementById('addBtn').onclick = add;
+    function addMessage(text, role) {
+      const div = document.createElement("div");
+      div.className = "msg " + (role === "user" ? "user" : "bot");
+      div.textContent = text;
+      messagesBox.appendChild(div);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+      return div;
+    }
 
-document.getElementById('buyBtn').onclick = () => {
-  add();
-  location.href = 'user-caet.html';
-};
+    document.getElementById("ai-form").addEventListener(
+      "submit",
+      async event => {
+        event.preventDefault();
 
-count();
-</script>
+        const text = input.value.trim();
+        if (!text || send.disabled) return;
 
+        addMessage(text, "user");
+        history.push({ role: "user", content: text });
+        input.value = "";
+        send.disabled = true;
+
+        const loading = addMessage(
+          "Soch raha hoon... / Thinking...",
+          "bot"
+        );
+
+        try {
+          if (API_URL.includes("YOUR-REAL-RENDER-SERVICE")) {
+            throw new Error("BACKEND_URL_NOT_SET");
+          }
+
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: history.slice(-12) })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || "Request failed");
+          }
+
+          if (typeof data.reply !== "string") {
+            throw new Error("Invalid response");
+          }
+
+          loading.textContent = data.reply;
+          history.push({
+            role: "assistant",
+            content: data.reply
+          });
+        } catch (error) {
+          loading.textContent =
+            error.message === "BACKEND_URL_NOT_SET"
+              ? "AI chat setup baaki hai: index.html mein apna asli Render backend URL set karein."
+              : "Connection nahi ho raha. Backend URL, Render service aur CORS settings check karein.";
+
+          history.pop();
+          console.error("GaonKart AI error:", error);
+        } finally {
+          send.disabled = false;
+          input.focus();
+        }
+      }
+    );
+  </script>
 </body>
 </html>
