@@ -594,7 +594,7 @@ updateCount();
 /* AI CHAT CONFIGURATION
    Apne deployed backend ka URL yahan set karein.
    API secret key kabhi is file mein mat rakhein. */
-const API_URL = "https://gsk_uv1s3GvKPZajiLVxyMavWGdyb3FyzqdsXHhCDVwxlccjMyHRoi
+const API_URL = "https://
 .onrender.com/api/chat";
 
 const panel = document.getElementById("ai-panel");
@@ -654,7 +654,7 @@ form.addEventListener("submit", async event => {
   const loading = addMessage("Soch raha hoon...", "bot");
 
   try {
-    if (API_URL.includes("gsk_uv1s3GvKPZajiLVxyMavWGdyb3FyzqdsXHhCDVwxlccjMyHRoi")) {
+    if (API_URL.includes("")) {
       throw new Error("BACKEND_URL_NOT_SET");
     }
 
