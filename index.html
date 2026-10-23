@@ -1,32 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#245b3d">
-  <meta name="description" content="GaonKart - fresh fruits, handmade products aur village items online kharidein.">
+  <meta name="description" content="GaonKart - Village Products">
   <title>GaonKart | Village Products</title>
 
   <style>
     :root {
       --green: #245b3d;
-      --green-dark: #19442d;
+      --dark: #19442d;
       --bg: #f7f8f4;
-      --pink: #ed1745;
-      --text: #172b22;
-      --muted: #68756c;
       --border: #e0e7dc;
     }
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Arial, sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: #172b22;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -37,27 +33,16 @@
       color: white;
       padding: 16px 5%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    nav {
-      display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
     }
 
-    nav a { font-size: 14px; font-weight: 700; }
-    nav a:hover { color: #d8f6c9; }
+    .logo { font-size: 25px; font-weight: bold; }
+
+    nav { display: flex; flex-wrap: wrap; gap: 15px; }
+    nav a { font-size: 14px; font-weight: bold; }
 
     .hero {
       padding: 45px 6%;
@@ -65,329 +50,234 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 35px;
+      gap: 30px;
       flex-wrap: wrap;
     }
 
-    .hero-content { flex: 1 1 350px; }
+    .hero-content { flex: 1 1 300px; }
 
     .hero h1 {
       font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.12;
-      margin: 0 0 15px;
       color: #1d402c;
+      margin: 0;
     }
 
-    .hero p {
-      font-size: 17px;
-      line-height: 1.8;
-      max-width: 570px;
-      color: #4d5e50;
-    }
+    .hero p { line-height: 1.8; }
 
     .hero img {
       width: min(100%, 410px);
-      height: 260px;
+      height: 250px;
       object-fit: cover;
       border-radius: 18px;
-      box-shadow: 0 12px 30px #244d3020;
     }
 
     .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
+      display: inline-block;
+      padding: 11px 15px;
+      border: 0;
+      border-radius: 9px;
       background: var(--green);
       color: white;
-      padding: 11px 15px;
-      border: 1px solid var(--green);
-      border-radius: 9px;
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      transition: .2s ease;
+      font-weight: bold;
     }
 
-    .btn:hover {
-      background: var(--green-dark);
-      transform: translateY(-1px);
-    }
-
-    .secondary {
-      background: #e6eee3;
-      color: var(--green);
-      border-color: #e6eee3;
-    }
-
-    .secondary:hover {
-      background: #d5e5d0;
-      color: var(--green-dark);
-    }
-
-    .hero .btn { margin: 8px 8px 0 0; }
-
-    .wrap {
-      padding: 30px 2.1%;
-      max-width: 1800px;
-      margin: auto;
-    }
-
-    .section-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin: 10px 0;
-    }
-
-    .section-top h2 { font-size: 25px; margin: 0; }
-
-    .view-all {
-      color: var(--pink);
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      margin: 8px 0 20px;
-      font-size: 15px;
-    }
-
-    .tools { margin: 20px 0; }
+    .wrap { padding: 30px 4%; max-width: 1600px; margin: auto; }
 
     .tools input {
       width: 100%;
-      max-width: 430px;
-      padding: 13px 15px;
+      max-width: 450px;
+      padding: 13px;
       border: 1px solid #d8e0d5;
       border-radius: 10px;
       background: white;
-      outline: none;
-    }
-
-    .tools input:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px #245b3d16;
+      margin: 15px 0;
     }
 
     .categories {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
-      margin: 18px 0 30px;
+      gap: 10px;
+      margin: 15px 0 25px;
     }
 
     .categories button {
       padding: 10px 15px;
-      background: #e7efe2;
       border: 0;
       border-radius: 25px;
-      color: var(--green);
-      font-size: 14px;
-      font-weight: 700;
       cursor: pointer;
+      background: #e7efe2;
+      color: var(--green);
     }
 
-    .categories button.active,
-    .categories button:hover {
+    .categories button.active {
       background: var(--green);
       color: white;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 16px;
-      align-items: stretch;
     }
 
     .card {
-      min-width: 0;
-      position: relative;
       background: white;
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 5px 15px #192a1610;
-      transition: transform .22s ease, box-shadow .22s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 25px #192a1618;
     }
 
     .product-image-wrap {
       height: 175px;
       position: relative;
-      overflow: hidden;
       background: #eef0e9;
     }
 
     .product-image {
-      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      transition: transform .35s ease;
     }
-
-    .card:hover .product-image { transform: scale(1.04); }
-
-    .product-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 2;
-      max-width: calc(100% - 55px);
-      padding: 5px 10px;
-      border-radius: 18px;
-      color: white;
-      font-size: 11px;
-      font-weight: 800;
-      background: #258b59;
-    }
-
-    .badge-fresh { background: #ed4595; }
-    .badge-best { background: #f05a24; }
-    .badge-organic { background: #249767; }
-    .badge-handmade { background: #8948ec; }
-    .badge-eco { background: #259b6a; }
-    .badge-festival { background: #883bf1; }
 
     .favourite {
       position: absolute;
-      top: 9px;
-      right: 9px;
-      z-index: 3;
-      display: grid;
-      place-items: center;
-      width: 33px;
-      height: 33px;
-      padding: 0;
-      border: none;
+      top: 8px;
+      right: 8px;
+      border: 0;
       border-radius: 50%;
-      background: #ffffffed;
-      color: #344238;
-      font-size: 21px;
+      background: white;
+      padding: 8px;
+      color: #ed1745;
       cursor: pointer;
     }
 
-    .favourite.active { color: #ed1745; }
-
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      padding: 14px 13px 13px;
-    }
-
-    .product-title {
-      min-height: 43px;
-      margin: 2px 0 8px;
-      font-size: 16px;
-      line-height: 1.35;
-      overflow-wrap: anywhere;
-    }
-
-    .product-unit {
-      margin: 0 0 11px;
-      color: #536158;
-      font-size: 14px;
-    }
-
-    .price {
-      margin: 0 0 14px;
-      color: var(--green);
-      font-size: 20px;
-      font-weight: 800;
-    }
-
-    .product-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      margin-top: auto;
-    }
-
-    .product-actions .btn {
-      min-height: 40px;
-      padding: 9px 13px;
-      white-space: nowrap;
-    }
-
-    .details-btn {
-      background: #e6eee3;
-      color: var(--green);
-      border-color: #e6eee3;
-    }
-
-    .details-btn:hover {
-      background: #d5e5d0;
-      color: var(--green-dark);
-    }
-
-    .cart-btn {
-      background: var(--green);
-      border-color: var(--green);
-    }
-
-    .no-results {
-      padding: 35px 15px;
-      text-align: center;
-      color: var(--muted);
-      background: white;
-      border-radius: 12px;
-    }
+    .product-info { padding: 13px; }
+    .product-title { min-height: 38px; font-size: 16px; }
+    .price { color: var(--green); font-weight: bold; font-size: 20px; }
+    .product-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    .product-actions .btn { font-size: 12px; }
 
     footer {
+      margin-top: 35px;
+      padding: 28px;
       text-align: center;
-      padding: 28px 15px;
       background: #1c3828;
       color: white;
-      margin-top: 35px;
     }
 
-    footer p { margin-bottom: 0; color: #d8e7db; }
+    /* GaonKart AI chat */
+    #ai-button {
+      position: fixed;
+      right: 18px;
+      bottom: 20px;
+      z-index: 9999;
+      border: 0;
+      border-radius: 35px;
+      padding: 14px 19px;
+      background: #087f4f;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 16px #0003;
+    }
 
-    [hidden] { display: none !important; }
+    #ai-panel {
+      position: fixed;
+      right: 14px;
+      bottom: 82px;
+      z-index: 9999;
+      width: min(360px, calc(100vw - 28px));
+      height: 470px;
+      max-height: calc(100dvh - 110px);
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 5px 25px #0003;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-    @media (max-width: 1450px) {
-      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    #ai-panel.open { display: flex; }
+
+    .ai-header {
+      background: #087f4f;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #ai-close {
+      background: none;
+      border: 0;
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    #ai-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg {
+      padding: 10px 12px;
+      border-radius: 14px;
+      max-width: 90%;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .bot { background: #f0f2f0; align-self: flex-start; }
+    .user { background: #d9f4e4; align-self: flex-end; }
+
+    #ai-form {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      border-top: 1px solid #eee;
+    }
+
+    #ai-input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      padding: 12px;
+    }
+
+    #ai-send {
+      background: #087f4f;
+      color: white;
+      border: 0;
+      border-radius: 50%;
+      width: 44px;
+      cursor: pointer;
     }
 
     @media (max-width: 900px) {
-      header { padding: 15px 4%; }
-      nav { gap: 13px; }
-      .hero { padding: 40px 5%; }
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     @media (max-width: 600px) {
       header { align-items: flex-start; }
-      nav { width: 100%; gap: 12px; }
-      nav a { font-size: 12px; }
-      .hero { padding: 32px 5%; }
-      .hero img { width: 100%; height: 210px; }
-      .wrap { padding: 25px 4%; }
-      .section-top h2 { font-size: 22px; }
-      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      nav { gap: 12px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
       .product-image-wrap { height: 145px; }
-      .product-info { padding: 11px 9px; }
-      .product-title { font-size: 14px; min-height: 39px; }
-      .product-unit { font-size: 12px; }
-      .price { font-size: 19px; }
-      .product-actions .btn { min-height: 37px; font-size: 12px; }
+      .product-info { padding: 10px; }
     }
 
     @media (max-width: 350px) {
       .grid { grid-template-columns: 1fr; }
-      .product-image-wrap { height: 200px; }
-      .product-actions { flex-direction: row; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -395,8 +285,7 @@
 <body>
   <header>
     <a class="logo" href="index.html">🌿 GaonKart</a>
-
-    <nav aria-label="Main navigation">
+    <nav>
       <a href="index.html">Home</a>
       <a href="fruits.html">Fruits</a>
       <a href="about.html">About</a>
@@ -408,12 +297,9 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Gaon ke products,<br>seedhe aapke ghar!</h1>
-      <p>
-        Local farmers aur village artisans ke products discover karein.
-        Fresh fruits, handmade items aur gaon ki quality ko support karein.
-      </p>
+      <p>Local farmers aur village artisans ke products discover karein. Fresh fruits, handmade items aur gaon ki quality ko support karein.</p>
       <a class="btn" href="#products">Shop Now →</a>
-      <a class="btn secondary" href="about.html">Hamare baare mein</a>
+      <a class="btn" href="about.html">Hamare baare mein</a>
     </div>
 
     <img
@@ -422,45 +308,61 @@
   </section>
 
   <main class="wrap">
-    <div class="section-top">
-      <h2>Apni pasand ka product chunein</h2>
-    </div>
+    <h2>Apni pasand ka product chunein</h2>
 
     <div class="tools">
-      <input
-        id="search"
-        type="search"
+      <input id="search" type="search"
         placeholder="🔍 Product search karein..."
         aria-label="Search products">
     </div>
 
-    <div class="categories" aria-label="Product categories">
-      <button type="button" class="active" data-filter="all">All Products</button>
-      <button type="button" data-filter="fruits">🍎 Fruits</button>
-      <button type="button" data-filter="handmade">🧺 Handmade</button>
-      <button type="button" data-filter="home">🏡 Home Products</button>
+    <div class="categories">
+      <button class="active" data-filter="all">All Products</button>
+      <button data-filter="fruits">🍎 Fruits</button>
+      <button data-filter="handmade">🧺 Handmade</button>
+      <button data-filter="home">🏡 Home Products</button>
     </div>
 
-    <div class="section-top" id="products">
-      <h2>Popular Products</h2>
-      <a href="#products" class="view-all" id="viewAll">View all →</a>
-    </div>
-
-    <p class="section-subtitle">
-      Fresh products, best quality, at your doorstep.
-    </p>
-
+    <h2 id="products">Popular Products</h2>
+    <p>Fresh products, best quality, at your doorstep.</p>
     <div class="grid" id="productGrid"></div>
-
-    <p class="no-results" id="noResults" hidden>
-      Koi product nahi mila. Dusra naam search karein.
-    </p>
+    <p id="noResults" hidden>Koi product nahi mila.</p>
   </main>
 
   <footer>
     <strong>🌿 GaonKart</strong>
     <p>© 2026 GaonKart · Local Village Products Marketplace</p>
   </footer>
+
+  <!-- AI chat window -->
+  <button id="ai-button">🤖 GaonKart AI</button>
+
+  <section id="ai-panel" aria-label="GaonKart AI chat">
+    <header class="ai-header">
+      <div>
+        <strong>🤖 GaonKart AI</strong>
+        <div style="font-size:12px;margin-top:4px">
+          Hindi • English • Hinglish
+        </div>
+      </div>
+      <button id="ai-close" aria-label="Close chat">×</button>
+    </header>
+
+    <div id="ai-messages" aria-live="polite">
+      <div class="msg bot">
+        Namaste! 👋 Welcome to GaonKart.
+        Aap kya dhoondh rahe hain?
+        What are you looking for today?
+      </div>
+    </div>
+
+    <form id="ai-form">
+      <input id="ai-input" maxlength="2000" required
+        placeholder="Message likho..."
+        aria-label="Your message">
+      <button id="ai-send" type="submit">➤</button>
+    </form>
+  </section>
 
   <script>
     "use strict";
@@ -473,10 +375,8 @@
         unit: "1 kg",
         category: "fruits",
         emoji: "🥭",
-        badge: "Fresh",
-        badgeClass: "badge-fresh",
         image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80",
-        desc: "Seasonal fresh mangoes sourced from local growers."
+        desc: "Seasonal mangoes from local growers."
       },
       {
         id: "banana",
@@ -485,8 +385,6 @@
         unit: "1 dozen",
         category: "fruits",
         emoji: "🍌",
-        badge: "Best Seller",
-        badgeClass: "badge-best",
         image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80",
         desc: "Fresh bananas for everyday use."
       },
@@ -497,8 +395,6 @@
         unit: "1 kg",
         category: "fruits",
         emoji: "🍎",
-        badge: "Organic",
-        badgeClass: "badge-organic",
         image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
         desc: "Crisp apples, carefully packed."
       },
@@ -509,8 +405,6 @@
         unit: "1 piece",
         category: "handmade",
         emoji: "🏺",
-        badge: "Handmade",
-        badgeClass: "badge-handmade",
         image: "images/clay-matka.png",
         desc: "Traditional handmade clay water pot."
       },
@@ -521,8 +415,6 @@
         unit: "1 piece",
         category: "handmade",
         emoji: "🧺",
-        badge: "Eco Friendly",
-        badgeClass: "badge-eco",
         image: "images/bamboo-basket.png",
         desc: "Traditional handwoven bamboo basket."
       },
@@ -533,8 +425,6 @@
         unit: "1 piece",
         category: "handmade",
         emoji: "🛍️",
-        badge: "Eco Friendly",
-        badgeClass: "badge-eco",
         image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
         desc: "Reusable bag for everyday shopping."
       },
@@ -545,12 +435,7 @@
         unit: "Set of 6",
         category: "home",
         emoji: "🪔",
-        badge: "Festival",
-        badgeClass: "badge-festival",
-
-        /* Clay diya product image */
-        image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=85",
-
+        image: "images/clay-diya-set.png",
         desc: "Traditional clay diyas made by local artisans."
       },
       {
@@ -560,8 +445,6 @@
         unit: "1 piece",
         category: "home",
         emoji: "🥄",
-        badge: "Handmade",
-        badgeClass: "badge-handmade",
         image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
         desc: "Simple wooden kitchen utensil."
       }
@@ -573,11 +456,8 @@
 
     function readStorage(key, fallback) {
       try {
-        const value = JSON.parse(
-          localStorage.getItem(key) || JSON.stringify(fallback)
-        );
-        return value;
-      } catch (error) {
+        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+      } catch {
         return fallback;
       }
     }
@@ -590,9 +470,31 @@
     function saveCart(cart) {
       try {
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      } catch (error) {
-        alert("Cart save nahi ho saka. Browser storage check karein.");
+      } catch {
+        alert("Cart save nahi ho saka.");
       }
+    }
+
+    function updateCount() {
+      const count = getCart().reduce(
+        (sum, item) => sum + Math.max(0, Number(item.qty) || 0), 0
+      );
+      document.getElementById("cartCount").textContent = count;
+    }
+
+    function addToCart(id) {
+      const cart = getCart();
+      const item = cart.find(p => p.id === id);
+
+      if (item) {
+        item.qty = (Number(item.qty) || 0) + 1;
+      } else {
+        cart.push({ id, qty: 1 });
+      }
+
+      saveCart(cart);
+      updateCount();
+      alert("Product cart mein add ho gaya!");
     }
 
     function getFavourites() {
@@ -600,58 +502,16 @@
       return Array.isArray(favs) ? favs : [];
     }
 
-    function updateCount() {
-      const count = getCart().reduce((sum, item) => {
-        return sum + Math.max(0, Number(item.qty) || 0);
-      }, 0);
-
-      document.getElementById("cartCount").textContent = count;
-    }
-
-    function addToCart(id) {
-      const product = PRODUCTS.find(item => item.id === id);
-      if (!product) return;
-
-      const cart = getCart();
-      const existing = cart.find(item => item.id === id);
-
-      if (existing) {
-        existing.qty = (Number(existing.qty) || 0) + 1;
-      } else {
-        cart.push({ id: id, qty: 1 });
-      }
-
-      saveCart(cart);
-      updateCount();
-
-      const button = document.querySelector('[data-add="' + id + '"]');
-
-      if (button) {
-        const originalText = button.textContent;
-        button.textContent = "✓ Added";
-        button.disabled = true;
-
-        window.setTimeout(() => {
-          button.textContent = originalText;
-          button.disabled = false;
-        }, 900);
-      }
-    }
-
     function toggleFavourite(id) {
-      let favourites = getFavourites();
+      let favs = getFavourites();
 
-      if (favourites.includes(id)) {
-        favourites = favourites.filter(item => item !== id);
-      } else {
-        favourites.push(id);
-      }
+      favs = favs.includes(id)
+        ? favs.filter(item => item !== id)
+        : [...favs, id];
 
       try {
-        localStorage.setItem(FAV_KEY, JSON.stringify(favourites));
-      } catch (error) {
-        // Favourite save unavailable if browser storage is disabled.
-      }
+        localStorage.setItem(FAV_KEY, JSON.stringify(favs));
+      } catch {}
 
       renderProducts(getVisibleProducts());
     }
@@ -660,75 +520,50 @@
       const query = document.getElementById("search").value.trim().toLowerCase();
 
       return PRODUCTS.filter(product => {
-        const searchable = (
-          product.name + " " +
-          product.category + " " +
-          product.desc
-        ).toLowerCase();
+        const text = (product.name + " " + product.category + " " + product.desc).toLowerCase();
 
-        const matchesSearch = searchable.includes(query);
-        const matchesCategory =
-          currentCategory === "all" ||
-          product.category === currentCategory;
-
-        return matchesSearch && matchesCategory;
+        return text.includes(query) &&
+          (currentCategory === "all" || product.category === currentCategory);
       });
     }
 
     function renderProducts(products) {
       const grid = document.getElementById("productGrid");
-      const noResults = document.getElementById("noResults");
-      const favourites = getFavourites();
+      const favs = getFavourites();
 
       grid.replaceChildren();
-      noResults.hidden = products.length !== 0;
+      document.getElementById("noResults").hidden = products.length !== 0;
 
       products.forEach(product => {
         const card = document.createElement("article");
         card.className = "card";
 
-        const imageWrap = document.createElement("div");
-        imageWrap.className = "product-image-wrap";
+        const wrap = document.createElement("div");
+        wrap.className = "product-image-wrap";
 
-        const image = document.createElement("img");
-        image.className = "product-image";
-        image.src = product.image;
-        image.alt = product.name;
-        image.loading = "lazy";
+        const img = document.createElement("img");
+        img.className = "product-image";
+        img.src = product.image;
+        img.alt = product.name;
+        img.loading = "lazy";
 
-        image.onerror = () => {
-          image.onerror = null;
-          image.style.display = "none";
-
+        img.onerror = () => {
+          img.onerror = null;
+          img.style.display = "none";
           const fallback = document.createElement("span");
           fallback.textContent = product.emoji;
-          fallback.style.cssText =
-            "display:grid;place-items:center;width:100%;height:100%;font-size:60px;";
-
-          imageWrap.prepend(fallback);
+          fallback.style.cssText = "display:grid;place-items:center;height:100%;font-size:60px";
+          wrap.prepend(fallback);
         };
 
-        const badge = document.createElement("span");
-        badge.className = "product-badge " + product.badgeClass;
-        badge.textContent = product.badge;
+        const fav = document.createElement("button");
+        fav.className = "favourite";
+        fav.type = "button";
+        fav.textContent = favs.includes(product.id) ? "♥" : "♡";
+        fav.setAttribute("aria-label", "Toggle favourite");
+        fav.onclick = () => toggleFavourite(product.id);
 
-        const favourite = document.createElement("button");
-        favourite.className = "favourite" +
-          (favourites.includes(product.id) ? " active" : "");
-        favourite.type = "button";
-        favourite.setAttribute("aria-label", "Favourite " + product.name);
-        favourite.setAttribute(
-          "aria-pressed",
-          String(favourites.includes(product.id))
-        );
-        favourite.textContent =
-          favourites.includes(product.id) ? "♥" : "♡";
-
-        favourite.addEventListener("click", () => {
-          toggleFavourite(product.id);
-        });
-
-        imageWrap.append(image, badge, favourite);
+        wrap.append(img, fav);
 
         const info = document.createElement("div");
         info.className = "product-info";
@@ -738,32 +573,29 @@
         title.textContent = product.emoji + " " + product.name;
 
         const unit = document.createElement("p");
-        unit.className = "product-unit";
         unit.textContent = product.unit;
 
         const price = document.createElement("p");
         price.className = "price";
-        price.textContent = "₹" + product.price.toLocaleString("en-IN");
+        price.textContent = "₹" + product.price;
 
         const actions = document.createElement("div");
         actions.className = "product-actions";
 
         const details = document.createElement("a");
-        details.className = "btn details-btn";
-        details.href =
-          "descripation-page.html?id=" + encodeURIComponent(product.id);
+        details.className = "btn";
+        details.href = "descripation-page.html?id=" + encodeURIComponent(product.id);
         details.textContent = "Details";
 
         const add = document.createElement("button");
-        add.className = "btn cart-btn";
+        add.className = "btn";
         add.type = "button";
-        add.dataset.add = product.id;
         add.textContent = "Add to Cart";
-        add.addEventListener("click", () => addToCart(product.id));
+        add.onclick = () => addToCart(product.id);
 
         actions.append(details, add);
         info.append(title, unit, price, actions);
-        card.append(imageWrap, info);
+        card.append(wrap, info);
         grid.appendChild(card);
       });
     }
@@ -772,11 +604,11 @@
       renderProducts(getVisibleProducts());
     });
 
-    document.querySelectorAll(".categories button").forEach(button => {
+    document.querySelectorAll("[data-filter]").forEach(button => {
       button.addEventListener("click", () => {
         currentCategory = button.dataset.filter;
 
-        document.querySelectorAll(".categories button").forEach(item => {
+        document.querySelectorAll("[data-filter]").forEach(item => {
           item.classList.toggle("active", item === button);
         });
 
@@ -784,21 +616,70 @@
       });
     });
 
-    document.getElementById("viewAll").addEventListener("click", event => {
-      event.preventDefault();
-
-      currentCategory = "all";
-      document.getElementById("search").value = "";
-
-      document.querySelectorAll(".categories button").forEach(button => {
-        button.classList.toggle("active", button.dataset.filter === "all");
-      });
-
-      renderProducts(PRODUCTS);
-    });
-
     renderProducts(PRODUCTS);
     updateCount();
+
+    // AI chat frontend: connect to your deployed backend URL.
+    const API_URL = "https://YOUR-BACKEND-URL.onrender.com/api/chat";
+    const panel = document.getElementById("ai-panel");
+    const messagesBox = document.getElementById("ai-messages");
+    const input = document.getElementById("ai-input");
+    const send = document.getElementById("ai-send");
+    const history = [];
+
+    document.getElementById("ai-button").onclick = () => {
+      panel.classList.add("open");
+      input.focus();
+    };
+
+    document.getElementById("ai-close").onclick = () => {
+      panel.classList.remove("open");
+    };
+
+    function addMessage(text, role) {
+      const div = document.createElement("div");
+      div.className = "msg " + (role === "user" ? "user" : "bot");
+      div.textContent = text;
+      messagesBox.appendChild(div);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+      return div;
+    }
+
+    document.getElementById("ai-form").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const text = input.value.trim();
+      if (!text || send.disabled) return;
+
+      addMessage(text, "user");
+      history.push({ role: "user", content: text });
+      input.value = "";
+      send.disabled = true;
+
+      const loading = addMessage("Soch raha hoon... / Thinking...", "bot");
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: history.slice(-12) })
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Request failed");
+
+        loading.textContent = data.reply;
+        history.push({ role: "assistant", content: data.reply });
+      } catch (error) {
+        loading.textContent =
+          "Connection nahi ho raha. Backend URL aur server check karein.";
+        history.pop();
+        console.error(error);
+      } finally {
+        send.disabled = false;
+        input.focus();
+      }
+    });
   </script>
 </body>
 </html>
