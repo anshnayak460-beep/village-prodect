@@ -19,7 +19,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -142,10 +141,7 @@
       margin: 10px 0;
     }
 
-    .section-top h2 {
-      font-size: 25px;
-      margin: 0;
-    }
+    .section-top h2 { font-size: 25px; margin: 0; }
 
     .view-all {
       color: var(--pink);
@@ -356,7 +352,6 @@
     }
 
     footer p { margin-bottom: 0; color: #d8e7db; }
-
     [hidden] { display: none !important; }
 
     @media (max-width: 1450px) {
@@ -398,6 +393,7 @@
 <body>
   <header>
     <a class="logo" href="index.html">🌿 GaonKart</a>
+
     <nav aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="fruits.html">Fruits</a>
@@ -410,10 +406,12 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Gaon ke products,<br>seedhe aapke ghar!</h1>
+
       <p>
         Local farmers aur village artisans ke products discover karein.
         Fresh fruits, handmade items aur gaon ki quality ko support karein.
       </p>
+
       <a class="btn" href="#products">Shop Now →</a>
       <a class="btn secondary" href="about.html">Hamare baare mein</a>
     </div>
@@ -454,6 +452,7 @@
     </p>
 
     <div class="grid" id="productGrid"></div>
+
     <p class="no-results" id="noResults" hidden>
       Koi product nahi mila. Dusra naam search karein.
     </p>
@@ -549,7 +548,10 @@
         emoji: "🪔",
         badge: "Festival",
         badgeClass: "badge-festival",
-        image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80",
+
+        /* Tumhari pehli photo ka path */
+        image: "images/clay-diya-set.png",
+
         desc: "Traditional clay diyas made by local artisans."
       },
       {
@@ -572,8 +574,9 @@
 
     function readStorage(key, fallback) {
       try {
-        const value = JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
-        return value;
+        return JSON.parse(
+          localStorage.getItem(key) || JSON.stringify(fallback)
+        );
       } catch (error) {
         return fallback;
       }
@@ -647,14 +650,15 @@
       try {
         localStorage.setItem(FAV_KEY, JSON.stringify(favourites));
       } catch (error) {
-        // Favourite state cannot be saved if browser storage is disabled.
+        // Browser storage disabled ho to favourite save nahi hoga.
       }
 
       renderProducts(getVisibleProducts());
     }
 
     function getVisibleProducts() {
-      const query = document.getElementById("search").value.trim().toLowerCase();
+      const query = document.getElementById("search")
+        .value.trim().toLowerCase();
 
       return PRODUCTS.filter(product => {
         const searchable = (
@@ -702,6 +706,7 @@
           fallback.textContent = product.emoji;
           fallback.style.cssText =
             "display:grid;place-items:center;width:100%;height:100%;font-size:60px;";
+
           imageWrap.prepend(fallback);
         };
 
@@ -713,10 +718,19 @@
         favourite.className = "favourite" +
           (favourites.includes(product.id) ? " active" : "");
         favourite.type = "button";
-        favourite.setAttribute("aria-label", "Favourite " + product.name);
-        favourite.setAttribute("aria-pressed", String(favourites.includes(product.id)));
-        favourite.textContent = favourites.includes(product.id) ? "♥" : "♡";
-        favourite.addEventListener("click", () => toggleFavourite(product.id));
+        favourite.setAttribute(
+          "aria-label", "Favourite " + product.name
+        );
+        favourite.setAttribute(
+          "aria-pressed",
+          String(favourites.includes(product.id))
+        );
+        favourite.textContent =
+          favourites.includes(product.id) ? "♥" : "♡";
+
+        favourite.addEventListener(
+          "click", () => toggleFavourite(product.id)
+        );
 
         imageWrap.append(image, badge, favourite);
 
@@ -733,14 +747,17 @@
 
         const price = document.createElement("p");
         price.className = "price";
-        price.textContent = "₹" + product.price.toLocaleString("en-IN");
+        price.textContent =
+          "₹" + product.price.toLocaleString("en-IN");
 
         const actions = document.createElement("div");
         actions.className = "product-actions";
 
         const details = document.createElement("a");
         details.className = "btn details-btn";
-        details.href = "descripation-page.html?id=" + encodeURIComponent(product.id);
+        details.href =
+          "descripation-page.html?id=" +
+          encodeURIComponent(product.id);
         details.textContent = "Details";
 
         const add = document.createElement("button");
@@ -748,7 +765,9 @@
         add.type = "button";
         add.dataset.add = product.id;
         add.textContent = "Add to Cart";
-        add.addEventListener("click", () => addToCart(product.id));
+        add.addEventListener(
+          "click", () => addToCart(product.id)
+        );
 
         actions.append(details, add);
         info.append(title, unit, price, actions);
@@ -775,11 +794,14 @@
 
     document.getElementById("viewAll").addEventListener("click", event => {
       event.preventDefault();
+
       currentCategory = "all";
       document.getElementById("search").value = "";
 
       document.querySelectorAll(".categories button").forEach(button => {
-        button.classList.toggle("active", button.dataset.filter === "all");
+        button.classList.toggle(
+          "active", button.dataset.filter === "all"
+        );
       });
 
       renderProducts(PRODUCTS);
