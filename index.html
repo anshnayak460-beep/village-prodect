@@ -1,989 +1,792 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f8faf5">
-<meta name="description" content="GaonKart par fresh fruits aur handmade village products online kharidein.">
-<title>GaonKart | Village Products</title>
-
-<style>
-:root {
-  --green: #245b3d;
-  --green-dark: #19442d;
-  --bg: #f7f8f4;
-  --pink: #ed1745;
-  --text: #172b22;
-  --muted: #68756c;
-  --border: #e6eae3;
-  --blue-light: #eef7fc;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-header {
-  background: var(--green);
-  color: white;
-  padding: 16px 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-header a {
-  color: white;
-}
-
-.logo {
-  font-size: 25px;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-header nav {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-header nav a {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-header nav a:hover {
-  color: #d8f6c9;
-}
-
-.hero {
-  padding: 48px 6%;
-  background: linear-gradient(120deg, #e4f1d9, #f8edcf);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 35px;
-  flex-wrap: wrap;
-}
-
-.hero-content {
-  flex: 1 1 350px;
-}
-
-.hero h1 {
-  font-size: clamp(32px, 5vw, 52px);
-  line-height: 1.12;
-  margin: 0 0 15px;
-  color: #1d402c;
-}
-
-.hero p {
-  font-size: 17px;
-  line-height: 1.8;
-  max-width: 570px;
-  color: #4d5e50;
-}
-
-.hero img {
-  width: min(100%, 410px);
-  height: 260px;
-  object-fit: cover;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px #244d3020;
-}
-
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  background: var(--green);
-  color: white;
-  padding: 11px 15px;
-  border: 1px solid var(--green);
-  border-radius: 9px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 700;
-  transition: .2s ease;
-}
-
-.btn:hover {
-  background: var(--green-dark);
-  transform: translateY(-1px);
-}
-
-.secondary {
-  background: #e6eee3;
-  color: var(--green);
-  border-color: #e6eee3;
-}
-
-.secondary:hover {
-  background: #d5e5d0;
-  color: var(--green-dark);
-}
-
-.hero .btn {
-  margin: 8px 8px 0 0;
-}
-
-.wrap {
-  padding: 36px 2.5%;
-  max-width: 1800px;
-  margin: auto;
-}
-
-.section-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.section-top h2 {
-  font-size: 25px;
-  margin: 0;
-  letter-spacing: -.4px;
-}
-
-.view-all {
-  color: var(--pink);
-  font-size: 15px;
-  font-weight: 800;
-}
-
-.view-all:hover {
-  text-decoration: underline;
-}
-
-.section-subtitle {
-  color: var(--muted);
-  margin: 8px 0 22px;
-  font-size: 15px;
-}
-
-.fresh-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 7px 13px;
-  background: #e1f4e7;
-  color: #237346;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-
-.tools {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
-
-.tools input {
-  width: 100%;
-  max-width: 420px;
-  padding: 13px 15px;
-  border: 1px solid #d8e0d5;
-  border-radius: 10px;
-  background: white;
-  outline: none;
-}
-
-.tools input:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px #245b3d16;
-}
-
-.categories {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 18px 0 32px;
-}
-
-.categories a {
-  padding: 10px 15px;
-  background: #e7efe2;
-  border-radius: 25px;
-  color: var(--green);
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.categories a:hover {
-  background: #d4e5ce;
-}
-
-/* Product cards */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 16px;
-  align-items: stretch;
-}
-
-.card {
-  min-width: 0;
-  position: relative;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  overflow: hidden;
-  box-shadow: 0 5px 15px #192a1610;
-  transition: transform .22s ease, box-shadow .22s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px #192a1618;
-}
-
-.product-image-wrap {
-  height: 175px;
-  position: relative;
-  overflow: hidden;
-  background: #eef0e9;
-}
-
-.product-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .35s ease;
-}
-
-.card:hover .product-image {
-  transform: scale(1.04);
-}
-
-.product-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 2;
-  max-width: calc(100% - 55px);
-  padding: 5px 10px;
-  border-radius: 18px;
-  color: white;
-  font-size: 11px;
-  font-weight: 800;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  background: #258b59;
-}
-
-.badge-fresh {
-  background: #ed4595;
-}
-
-.badge-best {
-  background: #f05a24;
-}
-
-.badge-organic {
-  background: #249767;
-}
-
-.badge-handmade {
-  background: #8948ec;
-}
-
-.badge-eco {
-  background: #259b6a;
-}
-
-.badge-festival {
-  background: #883bf1;
-}
-
-.favourite {
-  position: absolute;
-  top: 9px;
-  right: 9px;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  width: 33px;
-  height: 33px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: #ffffffed;
-  color: #344238;
-  font-size: 21px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px #00000012;
-}
-
-.favourite.active {
-  color: #ed1745;
-}
-
-.product-info {
-  display: flex;
-  flex-direction: column;
-  padding: 14px 13px 13px;
-}
-
-.product-title {
-  min-height: 43px;
-  margin: 2px 0 8px;
-  font-size: 16px;
-  line-height: 1.35;
-  overflow-wrap: anywhere;
-}
-
-.product-unit {
-  margin: 0 0 11px;
-  color: #536158;
-  font-size: 14px;
-}
-
-.price {
-  margin: 0 0 12px;
-  color: var(--pink);
-  font-size: 22px;
-  font-weight: 800;
-}
-
-.bank-offer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  min-height: 42px;
-  margin: auto 0 12px;
-  padding: 9px 10px;
-  border-radius: 10px;
-  background: var(--blue-light);
-  color: #536579;
-  font-size: 12px;
-  line-height: 1.3;
-}
-
-.bank-offer .bank-icon {
-  flex-shrink: 0;
-  font-size: 16px;
-}
-
-.bank-offer .offer-arrow {
-  flex-shrink: 0;
-  font-size: 20px;
-  color: #a8b8c8;
-}
-
-.product-actions {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 7px;
-}
-
-.product-actions .btn {
-  width: 100%;
-  min-width: 0;
-  min-height: 43px;
-  padding: 9px 6px;
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-.details-btn {
-  background: white;
-  color: #37453c;
-  border-color: #e0e6e1;
-}
-
-.details-btn:hover {
-  background: #f4f8f2;
-  color: var(--green);
-}
-
-.cart-btn {
-  background: var(--pink);
-  border-color: var(--pink);
-}
-
-.cart-btn:hover {
-  background: #ca1037;
-}
-
-.no-results {
-  padding: 35px 15px;
-  text-align: center;
-  color: var(--muted);
-  background: white;
-  border-radius: 12px;
-}
-
-footer {
-  text-align: center;
-  padding: 28px 15px;
-  background: #1c3828;
-  color: white;
-  margin-top: 35px;
-}
-
-footer p {
-  margin-bottom: 0;
-  color: #d8e7db;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-/* Responsive layout */
-
-@media (max-width: 1450px) {
-  .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 900px) {
-  header {
-    padding: 15px 4%;
-  }
-
-  header nav {
-    gap: 13px;
-  }
-
-  .hero {
-    padding: 40px 5%;
-  }
-
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .product-image-wrap {
-    height: 170px;
-  }
-}
-
-@media (max-width: 600px) {
-  header {
-    align-items: flex-start;
-  }
-
-  header nav {
-    width: 100%;
-    gap: 12px;
-  }
-
-  header nav a {
-    font-size: 12px;
-  }
-
-  .hero {
-    padding: 32px 5%;
-  }
-
-  .hero img {
-    width: 100%;
-    height: 210px;
-  }
-
-  .wrap {
-    padding: 28px 4%;
-  }
-
-  .section-top h2 {
-    font-size: 22px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .product-image-wrap {
-    height: 145px;
-  }
-
-  .product-info {
-    padding: 11px 9px;
-  }
-
-  .product-title {
-    font-size: 14px;
-    min-height: 39px;
-  }
-
-  .product-unit {
-    font-size: 12px;
-  }
-
-  .price {
-    font-size: 19px;
-  }
-
-  .product-actions {
-    grid-template-columns: 1fr;
-  }
-
-  .product-actions .btn {
-    min-height: 38px;
-  }
-
-  .bank-offer {
-    font-size: 11px;
-    padding: 8px;
-  }
-}
-
-@media (max-width: 350px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .product-image-wrap {
-    height: 200px;
-  }
-
-  .product-actions {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#245b3d">
+  <meta name="description" content="GaonKart - fresh fruits, handmade products aur village items online kharidein.">
+  <title>GaonKart | Village Products</title>
+
+  <style>
+    :root {
+      --green: #245b3d;
+      --green-dark: #19442d;
+      --bg: #f7f8f4;
+      --pink: #ed1745;
+      --text: #172b22;
+      --muted: #68756c;
+      --border: #e0e7dc;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    header {
+      background: var(--green);
+      color: white;
+      padding: 16px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    nav a { font-size: 14px; font-weight: 700; }
+    nav a:hover { color: #d8f6c9; }
+
+    .hero {
+      padding: 45px 6%;
+      background: linear-gradient(120deg, #e4f1d9, #f8edcf);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      flex-wrap: wrap;
+    }
+
+    .hero-content { flex: 1 1 350px; }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.12;
+      margin: 0 0 15px;
+      color: #1d402c;
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.8;
+      max-width: 570px;
+      color: #4d5e50;
+    }
+
+    .hero img {
+      width: min(100%, 410px);
+      height: 260px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px #244d3020;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      background: var(--green);
+      color: white;
+      padding: 11px 15px;
+      border: 1px solid var(--green);
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .secondary {
+      background: #e6eee3;
+      color: var(--green);
+      border-color: #e6eee3;
+    }
+
+    .secondary:hover {
+      background: #d5e5d0;
+      color: var(--green-dark);
+    }
+
+    .hero .btn { margin: 8px 8px 0 0; }
+
+    .wrap {
+      padding: 30px 2.1%;
+      max-width: 1800px;
+      margin: auto;
+    }
+
+    .section-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+
+    .section-top h2 {
+      font-size: 25px;
+      margin: 0;
+    }
+
+    .view-all {
+      color: var(--pink);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin: 8px 0 20px;
+      font-size: 15px;
+    }
+
+    .tools { margin: 20px 0; }
+
+    .tools input {
+      width: 100%;
+      max-width: 430px;
+      padding: 13px 15px;
+      border: 1px solid #d8e0d5;
+      border-radius: 10px;
+      background: white;
+      outline: none;
+    }
+
+    .tools input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px #245b3d16;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0 30px;
+    }
+
+    .categories button {
+      padding: 10px 15px;
+      background: #e7efe2;
+      border: 0;
+      border-radius: 25px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .categories button.active,
+    .categories button:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .card {
+      min-width: 0;
+      position: relative;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px #192a1610;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px #192a1618;
+    }
+
+    .product-image-wrap {
+      height: 175px;
+      position: relative;
+      overflow: hidden;
+      background: #eef0e9;
+    }
+
+    .product-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .35s ease;
+    }
+
+    .card:hover .product-image { transform: scale(1.04); }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      max-width: calc(100% - 55px);
+      padding: 5px 10px;
+      border-radius: 18px;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      background: #258b59;
+    }
+
+    .badge-fresh { background: #ed4595; }
+    .badge-best { background: #f05a24; }
+    .badge-organic { background: #249767; }
+    .badge-handmade { background: #8948ec; }
+    .badge-eco { background: #259b6a; }
+    .badge-festival { background: #883bf1; }
+
+    .favourite {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 33px;
+      height: 33px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: #ffffffed;
+      color: #344238;
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    .favourite.active { color: #ed1745; }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      padding: 14px 13px 13px;
+    }
+
+    .product-title {
+      min-height: 43px;
+      margin: 2px 0 8px;
+      font-size: 16px;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .product-unit {
+      margin: 0 0 11px;
+      color: #536158;
+      font-size: 14px;
+    }
+
+    .price {
+      margin: 0 0 14px;
+      color: var(--green);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .product-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .product-actions .btn {
+      min-height: 40px;
+      padding: 9px 13px;
+      white-space: nowrap;
+    }
+
+    .details-btn {
+      background: #e6eee3;
+      color: var(--green);
+      border-color: #e6eee3;
+    }
+
+    .details-btn:hover {
+      background: #d5e5d0;
+      color: var(--green-dark);
+    }
+
+    .cart-btn {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .no-results {
+      padding: 35px 15px;
+      text-align: center;
+      color: var(--muted);
+      background: white;
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 15px;
+      background: #1c3828;
+      color: white;
+      margin-top: 35px;
+    }
+
+    footer p { margin-bottom: 0; color: #d8e7db; }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 1450px) {
+      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      header { padding: 15px 4%; }
+      nav { gap: 13px; }
+      .hero { padding: 40px 5%; }
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      header { align-items: flex-start; }
+      nav { width: 100%; gap: 12px; }
+      nav a { font-size: 12px; }
+      .hero { padding: 32px 5%; }
+      .hero img { width: 100%; height: 210px; }
+      .wrap { padding: 25px 4%; }
+      .section-top h2 { font-size: 22px; }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .product-image-wrap { height: 145px; }
+      .product-info { padding: 11px 9px; }
+      .product-title { font-size: 14px; min-height: 39px; }
+      .product-unit { font-size: 12px; }
+      .price { font-size: 19px; }
+      .product-actions .btn { min-height: 37px; font-size: 12px; }
+    }
+
+    @media (max-width: 350px) {
+      .grid { grid-template-columns: 1fr; }
+      .product-image-wrap { height: 200px; }
+      .product-actions { flex-direction: row; flex-wrap: wrap; }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <a class="logo" href="index.html">🌿 GaonKart</a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="fruits.html">Fruits</a>
+      <a href="about.html">About</a>
+      <a href="user-caet.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+      <a href="user-dashboard.html">My Orders</a>
+    </nav>
+  </header>
 
-<header>
-  <a class="logo" href="index.html">🌿 GaonKart</a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="fruits.html">Fruits</a>
-    <a href="about.html">About</a>
-    <a href="user-caet.html">🛒 Cart (<span id="cartCount">0</span>)</a>
-    <a href="user-dashboard.html">My Orders</a>
-  </nav>
-</header>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Gaon ke products,<br>seedhe aapke ghar!</h1>
+      <p>
+        Local farmers aur village artisans ke products discover karein.
+        Fresh fruits, handmade items aur gaon ki quality ko support karein.
+      </p>
+      <a class="btn" href="#products">Shop Now →</a>
+      <a class="btn secondary" href="about.html">Hamare baare mein</a>
+    </div>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Gaon ke products,<br>seedhe aapke ghar!</h1>
-    <p>Local farmers aur village artisans ke products discover karein. Fresh fruits, handmade items aur gaon ki quality ko support karein.</p>
-    <a class="btn" href="#products">Shop Now →</a>
-    <a class="btn secondary" href="about.html">Hamare baare mein</a>
-  </div>
+    <img
+      src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85"
+      alt="Green village fields"
+      loading="lazy">
+  </section>
 
-  <img
-    src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85"
-    alt="Green village fields">
-</section>
+  <main class="wrap">
+    <div class="section-top">
+      <h2>Apni pasand ka product chunein</h2>
+    </div>
 
-<main class="wrap">
+    <div class="tools">
+      <input
+        id="search"
+        type="search"
+        placeholder="🔍 Product search karein..."
+        aria-label="Search products">
+    </div>
 
-  <div class="section-top">
-    <h2>Apni pasand ka product chunein</h2>
-  </div>
+    <div class="categories" aria-label="Product categories">
+      <button type="button" class="active" data-filter="all">All Products</button>
+      <button type="button" data-filter="fruits">🍎 Fruits</button>
+      <button type="button" data-filter="handmade">🧺 Handmade</button>
+      <button type="button" data-filter="home">🏡 Home Products</button>
+    </div>
 
-  <div class="tools">
-    <input
-      id="search"
-      type="search"
-      placeholder="🔍 Product search karein..."
-      aria-label="Search products">
-  </div>
+    <div class="section-top" id="products">
+      <h2>Popular Products</h2>
+      <a href="#products" class="view-all" id="viewAll">View all →</a>
+    </div>
 
-  <div class="categories">
-    <a href="#products" data-filter="all">All Products</a>
-    <a href="#products" data-filter="fruits">🍎 Fruits</a>
-    <a href="#products" data-filter="handmade">🧺 Handmade</a>
-    <a href="#products" data-filter="home">🏡 Home Products</a>
-  </div>
+    <p class="section-subtitle">
+      Fresh products, best quality, at your doorstep.
+    </p>
 
-  <div class="section-top" id="products">
-    <h2>Popular Products</h2>
-    <a href="#products" class="view-all" id="viewAll">View all →</a>
-  </div>
+    <div class="grid" id="productGrid"></div>
+    <p class="no-results" id="noResults" hidden>
+      Koi product nahi mila. Dusra naam search karein.
+    </p>
+  </main>
 
-  <p class="section-subtitle">
-    Fresh products, best quality, at your doorstep.
-  </p>
+  <footer>
+    <strong>🌿 GaonKart</strong>
+    <p>© 2026 GaonKart · Local Village Products Marketplace</p>
+  </footer>
 
-  <div class="grid" id="productGrid"></div>
+  <script>
+    "use strict";
 
-  <p class="no-results" id="noResults" hidden>
-    Koi product nahi mila. Dusra naam search karein.
-  </p>
+    const PRODUCTS = [
+      {
+        id: "mango",
+        name: "Fresh Mango",
+        price: 120,
+        unit: "1 kg",
+        category: "fruits",
+        emoji: "🥭",
+        badge: "Fresh",
+        badgeClass: "badge-fresh",
+        image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80",
+        desc: "Seasonal fresh mangoes sourced from local growers."
+      },
+      {
+        id: "banana",
+        name: "Fresh Bananas",
+        price: 50,
+        unit: "1 dozen",
+        category: "fruits",
+        emoji: "🍌",
+        badge: "Best Seller",
+        badgeClass: "badge-best",
+        image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80",
+        desc: "Fresh bananas for everyday use."
+      },
+      {
+        id: "apple",
+        name: "Fresh Apples",
+        price: 160,
+        unit: "1 kg",
+        category: "fruits",
+        emoji: "🍎",
+        badge: "Organic",
+        badgeClass: "badge-organic",
+        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
+        desc: "Crisp apples, carefully packed."
+      },
+      {
+        id: "claypot",
+        name: "Handmade Clay Matka",
+        price: 250,
+        unit: "1 piece",
+        category: "handmade",
+        emoji: "🏺",
+        badge: "Handmade",
+        badgeClass: "badge-handmade",
+        image: "images/clay-matka.png",
+        desc: "Traditional handmade clay water pot."
+      },
+      {
+        id: "basket",
+        name: "Bamboo Basket",
+        price: 180,
+        unit: "1 piece",
+        category: "handmade",
+        emoji: "🧺",
+        badge: "Eco Friendly",
+        badgeClass: "badge-eco",
+        image: "images/bamboo-basket.png",
+        desc: "Traditional handwoven bamboo basket."
+      },
+      {
+        id: "jute",
+        name: "Jute Shopping Bag",
+        price: 100,
+        unit: "1 piece",
+        category: "handmade",
+        emoji: "🛍️",
+        badge: "Eco Friendly",
+        badgeClass: "badge-eco",
+        image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
+        desc: "Reusable bag for everyday shopping."
+      },
+      {
+        id: "diya",
+        name: "Clay Diya Set",
+        price: 80,
+        unit: "Set of 6",
+        category: "home",
+        emoji: "🪔",
+        badge: "Festival",
+        badgeClass: "badge-festival",
+        image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80",
+        desc: "Traditional clay diyas made by local artisans."
+      },
+      {
+        id: "wooden-spoon",
+        name: "Wooden Spoon",
+        price: 70,
+        unit: "1 piece",
+        category: "home",
+        emoji: "🥄",
+        badge: "Handmade",
+        badgeClass: "badge-handmade",
+        image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+        desc: "Simple wooden kitchen utensil."
+      }
+    ];
 
-</main>
+    const CART_KEY = "gaonCart";
+    const FAV_KEY = "gaonFavourites";
+    let currentCategory = "all";
 
-<footer>
-  <strong>🌿 GaonKart</strong>
-  <p>© 2026 GaonKart · Local Village Products Marketplace</p>
-</footer>
+    function readStorage(key, fallback) {
+      try {
+        const value = JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+        return value;
+      } catch (error) {
+        return fallback;
+      }
+    }
 
-<script>
-"use strict";
+    function getCart() {
+      const cart = readStorage(CART_KEY, []);
+      return Array.isArray(cart) ? cart : [];
+    }
 
-const PRODUCTS = [
-  {
-    id: "mango",
-    name: "Fresh Mango",
-    price: 120,
-    unit: "1 kg",
-    category: "fruits",
-    emoji: "🥭",
-    badge: "Fresh",
-    badgeClass: "badge-fresh",
-    image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=600&q=80",
-    desc: "Seasonal fresh mangoes sourced from local growers."
-  },
-  {
-    id: "banana",
-    name: "Fresh Bananas",
-    price: 50,
-    unit: "1 dozen",
-    category: "fruits",
-    emoji: "🍌",
-    badge: "Best Seller",
-    badgeClass: "badge-best",
-    image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=600&q=80",
-    desc: "Fresh bananas for everyday use."
-  },
-  {
-    id: "apple",
-    name: "Fresh Apples",
-    price: 160,
-    unit: "1 kg",
-    category: "fruits",
-    emoji: "🍎",
-    badge: "Organic",
-    badgeClass: "badge-organic",
-    image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
-    desc: "Crisp apples, carefully packed."
-  },
-  {
-    id: "claypot",
-    name: "Handmade Clay Matka",
-    price: 250,
-    unit: "1 piece",
-    category: "handmade",
-    emoji: "🏺",
-    badge: "Handmade",
-    badgeClass: "badge-handmade",
-    image: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80",
-    desc: "Traditional handmade clay pot."
-  },
-  {
-    id: "basket",
-    name: "Bamboo Basket",
-    price: 180,
-    unit: "1 piece",
-    category: "handmade",
-    emoji: "🧺",
-    badge: "Eco Friendly",
-    badgeClass: "badge-eco",
-    image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=600&q=80",
-    desc: "Useful woven basket for home storage."
-  },
-  {
-    id: "jute",
-    name: "Jute Shopping Bag",
-    price: 100,
-    unit: "1 piece",
-    category: "handmade",
-    emoji: "🛍️",
-    badge: "Eco Friendly",
-    badgeClass: "badge-eco",
-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
-    desc: "Reusable bag for everyday shopping."
-  },
-  {
-    id: "diya",
-    name: "Clay Diya Set",
-    price: 80,
-    unit: "Set of 6",
-    category: "home",
-    emoji: "🪔",
-    badge: "Festival",
-    badgeClass: "badge-festival",
-    image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80",
-    desc: "Traditional clay diyas made by local artisans."
-  },
-  {
-    id: "wooden-spoon",
-    name: "Wooden Spoon",
-    price: 70,
-    unit: "1 piece",
-    category: "home",
-    emoji: "🥄",
-    badge: "Handmade",
-    badgeClass: "badge-handmade",
-    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
-    desc: "Simple wooden kitchen utensil."
-  }
-];
+    function saveCart(cart) {
+      try {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      } catch (error) {
+        alert("Cart save nahi ho saka. Browser storage check karein.");
+      }
+    }
 
-const CART_KEY = "gaonCart";
-const FAV_KEY = "gaonFavourites";
+    function getFavourites() {
+      const favs = readStorage(FAV_KEY, []);
+      return Array.isArray(favs) ? favs : [];
+    }
 
-function getCart() {
-  try {
-    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-    return Array.isArray(cart) ? cart : [];
-  } catch (error) {
-    return [];
-  }
-}
+    function updateCount() {
+      const count = getCart().reduce((sum, item) => {
+        return sum + Math.max(0, Number(item.qty) || 0);
+      }, 0);
 
-function saveCart(cart) {
-  try {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  } catch (error) {
-    alert("Cart save nahi ho saka. Browser storage check karein.");
-  }
-}
+      document.getElementById("cartCount").textContent = count;
+    }
 
-function getFavourites() {
-  try {
-    const favourites = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
-    return Array.isArray(favourites) ? favourites : [];
-  } catch (error) {
-    return [];
-  }
-}
+    function addToCart(id) {
+      const product = PRODUCTS.find(item => item.id === id);
+      if (!product) return;
 
-function updateCount() {
-  const count = getCart().reduce((sum, item) => {
-    return sum + (Number(item.qty) || 0);
-  }, 0);
+      const cart = getCart();
+      const existing = cart.find(item => item.id === id);
 
-  const counter = document.getElementById("cartCount");
-  if (counter) counter.textContent = count;
-}
+      if (existing) {
+        existing.qty = (Number(existing.qty) || 0) + 1;
+      } else {
+        cart.push({ id: id, qty: 1 });
+      }
 
-function addToCart(id) {
-  const product = PRODUCTS.find(item => item.id === id);
-  if (!product) return;
+      saveCart(cart);
+      updateCount();
 
-  const cart = getCart();
-  const existing = cart.find(item => item.id === id);
+      const button = document.querySelector('[data-add="' + id + '"]');
 
-  if (existing) {
-    existing.qty = (Number(existing.qty) || 0) + 1;
-  } else {
-    cart.push({ id: id, qty: 1 });
-  }
+      if (button) {
+        const originalText = button.textContent;
+        button.textContent = "✓ Added";
+        button.disabled = true;
 
-  saveCart(cart);
-  updateCount();
+        window.setTimeout(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+        }, 900);
+      }
+    }
 
-  const button = document.querySelector(
-    '[data-add="' + id + '"]'
-  );
+    function toggleFavourite(id) {
+      let favourites = getFavourites();
 
-  if (button) {
-    const oldText = button.innerHTML;
-    button.innerHTML = "✓ Added";
-    button.disabled = true;
+      if (favourites.includes(id)) {
+        favourites = favourites.filter(item => item !== id);
+      } else {
+        favourites.push(id);
+      }
 
-    setTimeout(() => {
-      button.innerHTML = oldText;
-      button.disabled = false;
-    }, 900);
-  }
-}
+      try {
+        localStorage.setItem(FAV_KEY, JSON.stringify(favourites));
+      } catch (error) {
+        // Favourite state cannot be saved if browser storage is disabled.
+      }
 
-function toggleFavourite(id) {
-  let favourites = getFavourites();
+      renderProducts(getVisibleProducts());
+    }
 
-  if (favourites.includes(id)) {
-    favourites = favourites.filter(item => item !== id);
-  } else {
-    favourites.push(id);
-  }
+    function getVisibleProducts() {
+      const query = document.getElementById("search").value.trim().toLowerCase();
 
-  try {
-    localStorage.setItem(FAV_KEY, JSON.stringify(favourites));
-  } catch (error) {
-    // The button can still update for this page session.
-  }
+      return PRODUCTS.filter(product => {
+        const searchable = (
+          product.name + " " +
+          product.category + " " +
+          product.desc
+        ).toLowerCase();
 
-  renderProducts(getVisibleProducts());
-}
+        const matchesSearch = searchable.includes(query);
+        const matchesCategory =
+          currentCategory === "all" ||
+          product.category === currentCategory;
 
-function getVisibleProducts() {
-  const searchInput = document.getElementById("search");
-  const query = searchInput.value.trim().toLowerCase();
+        return matchesSearch && matchesCategory;
+      });
+    }
 
-  return PRODUCTS.filter(product => {
-    const matchesSearch = (
-      product.name + " " +
-      product.category + " " +
-      product.desc
-    ).toLowerCase().includes(query);
+    function renderProducts(products) {
+      const grid = document.getElementById("productGrid");
+      const noResults = document.getElementById("noResults");
+      const favourites = getFavourites();
 
-    const matchesCategory =
-      currentCategory === "all" ||
-      product.category === currentCategory;
+      grid.replaceChildren();
+      noResults.hidden = products.length !== 0;
 
-    return matchesSearch && matchesCategory;
-  });
-}
+      products.forEach(product => {
+        const card = document.createElement("article");
+        card.className = "card";
 
-let currentCategory = "all";
+        const imageWrap = document.createElement("div");
+        imageWrap.className = "product-image-wrap";
 
-function renderProducts(list) {
-  const grid = document.getElementById("productGrid");
-  const noResults = document.getElementById("noResults");
-  const favourites = getFavourites();
+        const image = document.createElement("img");
+        image.className = "product-image";
+        image.src = product.image;
+        image.alt = product.name;
+        image.loading = "lazy";
 
-  grid.replaceChildren();
+        image.onerror = () => {
+          image.removeAttribute("src");
+          image.alt = product.name + " photo upload nahi hui";
+          image.style.display = "none";
 
-  noResults.hidden = list.length !== 0;
+          const fallback = document.createElement("span");
+          fallback.textContent = product.emoji;
+          fallback.style.cssText =
+            "display:grid;place-items:center;width:100%;height:100%;font-size:60px;";
+          imageWrap.prepend(fallback);
+        };
 
-  list.forEach(product => {
-    const card = document.createElement("article");
-    card.className = "card";
+        const badge = document.createElement("span");
+        badge.className = "product-badge " + product.badgeClass;
+        badge.textContent = product.badge;
 
-    const imageWrap = document.createElement("div");
-    imageWrap.className = "product-image-wrap";
+        const favourite = document.createElement("button");
+        favourite.className = "favourite" +
+          (favourites.includes(product.id) ? " active" : "");
+        favourite.type = "button";
+        favourite.setAttribute("aria-label", "Favourite " + product.name);
+        favourite.setAttribute("aria-pressed", String(favourites.includes(product.id)));
+        favourite.textContent = favourites.includes(product.id) ? "♥" : "♡";
+        favourite.addEventListener("click", () => toggleFavourite(product.id));
 
-    const badge = document.createElement("span");
-    badge.className = "product-badge " + product.badgeClass;
-    badge.textContent = product.badge;
+        imageWrap.append(image, badge, favourite);
 
-    const favourite = document.createElement("button");
-    favourite.className = "favourite" +
-      (favourites.includes(product.id) ? " active" : "");
-    favourite.type = "button";
-    favourite.setAttribute("aria-label", "Favourite " + product.name);
-    favourite.setAttribute("aria-pressed", String(favourites.includes(product.id)));
-    favourite.innerHTML = favourites.includes(product.id) ? "♥" : "♡";
-    favourite.addEventListener("click", () => toggleFavourite(product.id));
+        const info = document.createElement("div");
+        info.className = "product-info";
 
-    const image = document.createElement("img");
-    image.className = "product-image";
-    image.src = product.image;
-    image.alt = product.name;
-    image.loading = "lazy";
-    image.onerror = () => {
-      image.alt = product.name + " image unavailable";
-      image.style.opacity = "0";
-      imageWrap.style.background =
-        "linear-gradient(135deg,#e6eee3,#f7e9d8)";
-    };
+        const title = document.createElement("h3");
+        title.className = "product-title";
+        title.textContent = product.emoji + " " + product.name;
 
-    imageWrap.append(image, badge, favourite);
+        const unit = document.createElement("p");
+        unit.className = "product-unit";
+        unit.textContent = product.unit;
 
-    const info = document.createElement("div");
-    info.className = "product-info";
+        const price = document.createElement("p");
+        price.className = "price";
+        price.textContent = "₹" + product.price.toLocaleString("en-IN");
 
-    const title = document.createElement("h3");
-    title.className = "product-title";
-    title.textContent = product.emoji + " " + product.name;
+        const actions = document.createElement("div");
+        actions.className = "product-actions";
 
-    const unit = document.createElement("p");
-    unit.className = "product-unit";
-    unit.textContent = product.unit;
+        const details = document.createElement("a");
+        details.className = "btn details-btn";
+        details.href = "descripation-page.html?id=" + encodeURIComponent(product.id);
+        details.textContent = "Details";
 
-    const price = document.createElement("p");
-    price.className = "price";
-    price.textContent = "₹" + product.price.toLocaleString("en-IN");
+        const add = document.createElement("button");
+        add.className = "btn cart-btn";
+        add.type = "button";
+        add.dataset.add = product.id;
+        add.textContent = "Add to Cart";
+        add.addEventListener("click", () => addToCart(product.id));
 
-    const offer = document.createElement("div");
-    offer.className = "bank-offer";
+        actions.append(details, add);
+        info.append(title, unit, price, actions);
+        card.append(imageWrap, info);
+        grid.appendChild(card);
+      });
+    }
 
-    const offerText = document.createElement("span");
-    offerText.textContent = "💳 Bank offers & more";
-
-    const offerArrow = document.createElement("span");
-    offerArrow.className = "offer-arrow";
-    offerArrow.textContent = "›";
-
-    offer.append(offerText, offerArrow);
-
-    const actions = document.createElement("div");
-    actions.className = "product-actions";
-
-    const details = document.createElement("a");
-    details.className = "btn details-btn";
-    details.href =
-      "descripation-page.html?id=" + encodeURIComponent(product.id);
-    details.innerHTML = "◎ Details";
-
-    const add = document.createElement("button");
-    add.className = "btn cart-btn";
-    add.type = "button";
-    add.dataset.add = product.id;
-    add.innerHTML = "🛒 Add to Cart";
-    add.addEventListener("click", () => addToCart(product.id));
-
-    actions.append(details, add);
-    info.append(title, unit, price, offer, actions);
-    card.append(imageWrap, info);
-    grid.appendChild(card);
-  });
-}
-
-document.getElementById("search").addEventListener("input", () => {
-  renderProducts(getVisibleProducts());
-});
-
-document.querySelectorAll(".categories a[data-filter]").forEach(link => {
-  link.addEventListener("click", event => {
-    event.preventDefault();
-    currentCategory = link.dataset.filter;
-    renderProducts(getVisibleProducts());
-
-    document.getElementById("products").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+    document.getElementById("search").addEventListener("input", () => {
+      renderProducts(getVisibleProducts());
     });
-  });
-});
 
-document.getElementById("viewAll").addEventListener("click", event => {
-  event.preventDefault();
-  currentCategory = "all";
-  document.getElementById("search").value = "";
-  renderProducts(PRODUCTS);
-});
+    document.querySelectorAll(".categories button").forEach(button => {
+      button.addEventListener("click", () => {
+        currentCategory = button.dataset.filter;
 
-renderProducts(PRODUCTS);
-updateCount();
-</script>
+        document.querySelectorAll(".categories button").forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
 
+        renderProducts(getVisibleProducts());
+      });
+    });
+
+    document.getElementById("viewAll").addEventListener("click", event => {
+      event.preventDefault();
+      currentCategory = "all";
+      document.getElementById("search").value = "";
+
+      document.querySelectorAll(".categories button").forEach(button => {
+        button.classList.toggle("active", button.dataset.filter === "all");
+      });
+
+      renderProducts(PRODUCTS);
+    });
+
+    renderProducts(PRODUCTS);
+    updateCount();
+  </script>
 </body>
 </html>
