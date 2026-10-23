@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -17,204 +16,6 @@
     }
 
     * { box-sizing: border-box; }
-
-<style>
-#gaon-ai-button {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 9999;
-  border: 0;
-  border-radius: 50px;
-  padding: 14px 20px;
-  background: #087f4f;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 16px #0003;
-}
-#gaon-ai-panel {
-  position: fixed;
-  right: 16px;
-  bottom: 82px;
-  z-index: 9999;
-  width: min(360px, calc(100vw - 32px));
-  height: 470px;
-  max-height: calc(100dvh - 110px);
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 18px;
-  box-shadow: 0 6px 28px #0003;
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-#gaon-ai-panel.open { display: flex; }
-.ga-header {
-  background: #087f4f;
-  color: white;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#gaon-ai-messages {
-  padding: 12px;
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.ga-msg {
-  padding: 10px 12px;
-  border-radius: 14px;
-  max-width: 88%;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  font-size: 14px;
-  line-height: 1.5;
-}
-.ga-bot { background: #f0f2f0; align-self: flex-start; }
-.ga-user { background: #d9f4e4; align-self: flex-end; }
-.ga-form {
-  display: flex;
-  gap: 8px;
-  padding: 10px;
-  border-top: 1px solid #eee;
-}
-#gaon-ai-input {
-  min-width: 0;
-  flex: 1;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 24px;
-  font-size: 14px;
-}
-#gaon-ai-send {
-  border: 0;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  background: #087f4f;
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
-}
-</style>
-
-<button id="gaon-ai-button" type="button">
-  🤖 GaonKart AI
-</button>
-
-<section id="gaon-ai-panel" aria-label="GaonKart AI chat">
-  <header class="ga-header">
-    <div>
-      <strong>🤖 GaonKart AI</strong>
-      <div style="font-size:12px;margin-top:4px">
-        Hindi • English • Hinglish
-      </div>
-    </div>
-    <button id="gaon-ai-close" type="button"
-      aria-label="Close chat"
-      style="background:none;color:white;border:0;font-size:24px;cursor:pointer">
-      ×
-    </button>
-  </header>
-
-  <div id="gaon-ai-messages" aria-live="polite">
-    <div class="ga-msg ga-bot">
-      Namaste! 👋 Welcome to GaonKart.
-      Aap kya dhoondh rahe hain?
-      What are you looking for today?
-    </div>
-  </div>
-
-  <form class="ga-form" id="gaon-ai-form">
-    <input id="gaon-ai-input"
-      placeholder="Message likho..."
-      aria-label="Your message"
-      maxlength="2000" required />
-    <button id="gaon-ai-send" type="submit"
-      aria-label="Send message">➤</button>
-  </form>
-</section>
-
-<script>
-(() => {
-  // Replace this with your deployed backend URL.
-  const API_URL = "https://YOUR-BACKEND-URL.onrender.com/api/chat";
-
-  const panel = document.getElementById("gaon-ai-panel");
-  const messagesBox = document.getElementById("gaon-ai-messages");
-  const form = document.getElementById("gaon-ai-form");
-  const input = document.getElementById("gaon-ai-input");
-  const send = document.getElementById("gaon-ai-send");
-
-  const history = [];
-
-  document.getElementById("gaon-ai-button").onclick = () => {
-    panel.classList.add("open");
-    input.focus();
-  };
-
-  document.getElementById("gaon-ai-close").onclick = () => {
-    panel.classList.remove("open");
-  };
-
-  function addMessage(text, who) {
-    const div = document.createElement("div");
-    div.className = "ga-msg " +
-      (who === "user" ? "ga-user" : "ga-bot");
-    div.textContent = text;
-    messagesBox.appendChild(div);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-    return div;
-  }
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const text = input.value.trim();
-    if (!text || send.disabled) return;
-
-    addMessage(text, "user");
-    history.push({ role: "user", content: text });
-    input.value = "";
-    send.disabled = true;
-
-    const loading = addMessage("Soch raha hoon... / Thinking...", "bot");
-
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: history.slice(-12)
-        })
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || "Request failed");
-      }
-
-      loading.textContent = data.reply;
-      history.push({ role: "assistant", content: data.reply });
-    } catch (error) {
-      loading.textContent =
-        "Maaf kijiye, abhi connection nahi ho raha. Please try again.";
-      history.pop();
-      console.error("GaonKart chat error:", error);
-    } finally {
-      send.disabled = false;
-      input.focus();
-      messagesBox.scrollTop = messagesBox.scrollHeight;
-    }
-  });
-})();
-</script>
 
     body {
       margin: 0;
@@ -280,7 +81,11 @@
       font-weight: bold;
     }
 
-    .wrap { padding: 30px 4%; max-width: 1600px; margin: auto; }
+    .wrap {
+      padding: 30px 4%;
+      max-width: 1600px;
+      margin: auto;
+    }
 
     .tools input {
       width: 100%;
@@ -365,7 +170,7 @@
       color: white;
     }
 
-    /* GaonKart AI chat */
+    /* AI Chat */
     #ai-button {
       position: fixed;
       right: 18px;
@@ -462,6 +267,11 @@
       cursor: pointer;
     }
 
+    #ai-send:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
     @media (max-width: 900px) {
       .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
@@ -495,7 +305,10 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Gaon ke products,<br>seedhe aapke ghar!</h1>
-      <p>Local farmers aur village artisans ke products discover karein. Fresh fruits, handmade items aur gaon ki quality ko support karein.</p>
+      <p>
+        Local farmers aur village artisans ke products discover karein.
+        Fresh fruits, handmade items aur gaon ki quality ko support karein.
+      </p>
       <a class="btn" href="#products">Shop Now →</a>
       <a class="btn" href="about.html">Hamare baare mein</a>
     </div>
@@ -509,7 +322,9 @@
     <h2>Apni pasand ka product chunein</h2>
 
     <div class="tools">
-      <input id="search" type="search"
+      <input
+        id="search"
+        type="search"
         placeholder="🔍 Product search karein..."
         aria-label="Search products">
     </div>
@@ -523,6 +338,7 @@
 
     <h2 id="products">Popular Products</h2>
     <p>Fresh products, best quality, at your doorstep.</p>
+
     <div class="grid" id="productGrid"></div>
     <p id="noResults" hidden>Koi product nahi mila.</p>
   </main>
@@ -532,8 +348,8 @@
     <p>© 2026 GaonKart · Local Village Products Marketplace</p>
   </footer>
 
-  <!-- AI chat window -->
-  <button id="ai-button">🤖 GaonKart AI</button>
+  <!-- AI Chat Window -->
+  <button id="ai-button" type="button">🤖 GaonKart AI</button>
 
   <section id="ai-panel" aria-label="GaonKart AI chat">
     <header class="ai-header">
@@ -543,7 +359,7 @@
           Hindi • English • Hinglish
         </div>
       </div>
-      <button id="ai-close" aria-label="Close chat">×</button>
+      <button id="ai-close" type="button" aria-label="Close chat">×</button>
     </header>
 
     <div id="ai-messages" aria-live="polite">
@@ -555,10 +371,14 @@
     </div>
 
     <form id="ai-form">
-      <input id="ai-input" maxlength="2000" required
+      <input
+        id="ai-input"
+        maxlength="2000"
+        required
         placeholder="Message likho..."
         aria-label="Your message">
-      <button id="ai-send" type="submit">➤</button>
+
+      <button id="ai-send" type="submit" aria-label="Send message">➤</button>
     </form>
   </section>
 
@@ -654,7 +474,9 @@
 
     function readStorage(key, fallback) {
       try {
-        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+        return JSON.parse(
+          localStorage.getItem(key) || JSON.stringify(fallback)
+        );
       } catch {
         return fallback;
       }
@@ -675,14 +497,16 @@
 
     function updateCount() {
       const count = getCart().reduce(
-        (sum, item) => sum + Math.max(0, Number(item.qty) || 0), 0
+        (sum, item) => sum + Math.max(0, Number(item.qty) || 0),
+        0
       );
+
       document.getElementById("cartCount").textContent = count;
     }
 
     function addToCart(id) {
       const cart = getCart();
-      const item = cart.find(p => p.id === id);
+      const item = cart.find(product => product.id === id);
 
       if (item) {
         item.qty = (Number(item.qty) || 0) + 1;
@@ -715,13 +539,21 @@
     }
 
     function getVisibleProducts() {
-      const query = document.getElementById("search").value.trim().toLowerCase();
+      const query = document
+        .getElementById("search")
+        .value.trim()
+        .toLowerCase();
 
       return PRODUCTS.filter(product => {
-        const text = (product.name + " " + product.category + " " + product.desc).toLowerCase();
+        const text = (
+          product.name + " " +
+          product.category + " " +
+          product.desc
+        ).toLowerCase();
 
         return text.includes(query) &&
-          (currentCategory === "all" || product.category === currentCategory);
+          (currentCategory === "all" ||
+           product.category === currentCategory);
       });
     }
 
@@ -748,9 +580,12 @@
         img.onerror = () => {
           img.onerror = null;
           img.style.display = "none";
+
           const fallback = document.createElement("span");
           fallback.textContent = product.emoji;
-          fallback.style.cssText = "display:grid;place-items:center;height:100%;font-size:60px";
+          fallback.style.cssText =
+            "display:grid;place-items:center;height:100%;font-size:60px";
+
           wrap.prepend(fallback);
         };
 
@@ -782,7 +617,9 @@
 
         const details = document.createElement("a");
         details.className = "btn";
-        details.href = "descripation-page.html?id=" + encodeURIComponent(product.id);
+        details.href =
+          "descripation-page.html?id=" +
+          encodeURIComponent(product.id);
         details.textContent = "Details";
 
         const add = document.createElement("button");
@@ -817,8 +654,10 @@
     renderProducts(PRODUCTS);
     updateCount();
 
-    // AI chat frontend: connect to your deployed backend URL.
-    const API_URL = "https://YOUR-BACKEND-URL.onrender.com/api/chat";
+    // AI CHAT: apna asli Render backend URL yahan daalo.
+    const API_URL =
+      "https://YOUR-REAL-RENDER-SERVICE.onrender.com/api/chat";
+
     const panel = document.getElementById("ai-panel");
     const messagesBox = document.getElementById("ai-messages");
     const input = document.getElementById("ai-input");
@@ -843,41 +682,64 @@
       return div;
     }
 
-    document.getElementById("ai-form").addEventListener("submit", async event => {
-      event.preventDefault();
+    document.getElementById("ai-form").addEventListener(
+      "submit",
+      async event => {
+        event.preventDefault();
 
-      const text = input.value.trim();
-      if (!text || send.disabled) return;
+        const text = input.value.trim();
+        if (!text || send.disabled) return;
 
-      addMessage(text, "user");
-      history.push({ role: "user", content: text });
-      input.value = "";
-      send.disabled = true;
+        addMessage(text, "user");
+        history.push({ role: "user", content: text });
+        input.value = "";
+        send.disabled = true;
 
-      const loading = addMessage("Soch raha hoon... / Thinking...", "bot");
+        const loading = addMessage(
+          "Soch raha hoon... / Thinking...",
+          "bot"
+        );
 
-      try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: history.slice(-12) })
-        });
+        try {
+          if (API_URL.includes("YOUR-REAL-RENDER-SERVICE")) {
+            throw new Error("BACKEND_URL_NOT_SET");
+          }
 
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || "Request failed");
+          const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: history.slice(-12) })
+          });
 
-        loading.textContent = data.reply;
-        history.push({ role: "assistant", content: data.reply });
-      } catch (error) {
-        loading.textContent =
-          "Connection nahi ho raha. Backend URL aur server check karein.";
-        history.pop();
-        console.error(error);
-      } finally {
-        send.disabled = false;
-        input.focus();
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error || "Request failed");
+          }
+
+          if (typeof data.reply !== "string") {
+            throw new Error("Invalid response");
+          }
+
+          loading.textContent = data.reply;
+          history.push({
+            role: "assistant",
+            content: data.reply
+          });
+        } catch (error) {
+          loading.textContent =
+            error.message === "BACKEND_URL_NOT_SET"
+              ? "AI chat setup baaki hai: index.html mein apna asli Render backend URL set karein."
+              : "Connection nahi ho raha. Backend URL, Render service aur CORS settings check karein.";
+
+          history.pop();
+          console.error("GaonKart AI error:", error);
+        } finally {
+          send.disabled = false;
+          input.focus();
+        }
       }
-    });
+    );
   </script>
 </body>
 </html>
