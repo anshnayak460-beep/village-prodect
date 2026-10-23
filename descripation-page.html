@@ -4,39 +4,541 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#245b3d">
 <title>Product Details | GaonKart</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f8faf5;color:#243126}header{background:#245b3d;color:white;padding:17px 5%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}header a{color:white;text-decoration:none;margin:0 7px}.logo{font-size:24px;font-weight:bold}.wrap{max-width:950px;margin:35px auto;padding:0 5%}.product{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;background:white;padding:22px;border-radius:15px;border:1px solid #e0e7dc}.product img{width:100%;max-height:390px;object-fit:cover;border-radius:12px}.price{font-size:27px;font-weight:bold;color:#245b3d}.btn{background:#245b3d;color:white;padding:12px 18px;border:0;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-block;margin:5px 5px 5px 0}.muted{color:#667366;line-height:1.6}footer{text-align:center;padding:24px;background:#1c3828;color:white;margin-top:35px}
+:root {
+  --green: #245b3d;
+  --dark: #19442d;
+  --bg: #f7f8f4;
+  --border: #e0e7dc;
+  --pink: #d4149b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #172b22;
+  font-family: Arial, sans-serif;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+.top {
+  background: var(--green);
+  color: white;
+  padding: 16px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.logo { font-size: 24px; font-weight: bold; }
+
+.top nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.crumb {
+  max-width: 1400px;
+  margin: 22px auto 14px;
+  padding: 0 24px;
+  color: #6d7d70;
+  font-size: 14px;
+}
+
+.product {
+  max-width: 1400px;
+  margin: 0 auto 28px;
+  padding: 22px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  min-width: 0;
+}
+
+.thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumb {
+  height: 68px;
+  width: 64px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.thumb.active { border: 2px solid var(--pink); }
+
+.thumb img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.heroimg {
+  min-height: 390px;
+  height: 100%;
+  max-height: 560px;
+  border-radius: 12px;
+  background: #f0f0e9;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.heroimg img {
+  width: 100%;
+  height: 100%;
+  max-height: 560px;
+  object-fit: cover;
+}
+
+.details { padding: 10px 0; min-width: 0; }
+
+.eyebrow {
+  color: #6c7c70;
+  font-size: 14px;
+  margin: 4px 0 24px;
+}
+
+.details h1 {
+  font-size: clamp(25px, 3vw, 36px);
+  margin: 0 0 18px;
+  color: #193c29;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--green);
+  margin: 12px 0;
+}
+
+.unit { color: #53675a; margin: 0 0 22px; }
+.desc { line-height: 1.6; color: #425449; }
+
+.stock {
+  background: #eef5eb;
+  border-radius: 9px;
+  padding: 12px;
+  margin: 18px 0;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+
+.btn {
+  border: 1px solid var(--green);
+  border-radius: 9px;
+  padding: 13px 18px;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.primary { background: var(--green); color: white; }
+.outline { background: white; color: var(--green); }
+.btn:hover { filter: brightness(.96); }
+
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 18px;
+  margin-top: 16px;
+}
+
+.panel h2 { font-size: 19px; margin: 0 0 18px; }
+
+.highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.label { font-size: 12px; color: #6d7d70; margin-bottom: 5px; }
+.value { font-size: 15px; }
+
+.panel details summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 18px;
+}
+
+.seller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.seller strong { font-size: 17px; }
+.note { font-size: 13px; color: #68786b; }
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #1c3828;
+  color: white;
+  margin-top: 32px;
+}
+
+@media (max-width: 760px) {
+  .crumb { margin-top: 15px; }
+
+  .product {
+    margin: 0 12px 20px;
+    padding: 14px;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .gallery {
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .thumb { width: 54px; height: 58px; }
+
+  .heroimg { min-height: 280px; max-height: 420px; }
+  .details { padding: 0; }
+  .eyebrow { margin-bottom: 12px; }
+  .top { padding: 14px 5%; }
+  .top nav { gap: 12px; }
+}
+
+@media (max-width: 380px) {
+  .gallery { grid-template-columns: 44px minmax(0, 1fr); }
+  .thumb { width: 44px; height: 48px; }
+  .heroimg { min-height: 230px; }
+  .btn { flex: 1; padding: 12px 10px; }
+  .highlights { gap: 12px; }
+}
 </style>
 </head>
+
 <body>
-<header>
-<a class="logo" href="index.html">🌿 GaonKart</a>
-<nav><a href="index.html">Home</a><a href="fruits.html">Fruits</a><a href="about.html">About</a><a href="user-caet.html">🛒 Cart</a><a href="user-dashboard.html">My Orders</a></nav>
+
+<header class="top">
+  <a class="logo" href="index.html">🌿 GaonKart</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#products">Shop Products</a>
+    <a href="user-caet.html">🛒 Cart (<span id="cartCount">0</span>)</a>
+    <a href="user-dashboard.html">My Orders</a>
+  </nav>
 </header>
-<main class="wrap">
-<a href="index.html">← Back to products</a>
-<div id="product"></div>
+
+<div class="crumb">
+  <a href="index.html">Home</a> /
+  <span id="crumbName">Product Details</span>
+</div>
+
+<main class="product">
+
+  <section class="gallery" aria-label="Product photos">
+    <div class="thumbs" id="thumbs"></div>
+    <div class="heroimg">
+      <img id="mainImage" alt="Product photo">
+    </div>
+  </section>
+
+  <section class="details">
+    <p class="eyebrow">GAONKART · LOCAL VILLAGE PRODUCTS</p>
+
+    <h1 id="name">Product</h1>
+    <div class="price" id="price">₹0</div>
+    <p class="unit" id="unit"></p>
+    <p class="desc" id="desc"></p>
+
+    <div class="stock">
+      ✓ Local artisan product<br>
+      📦 Availability aur delivery details seller se
+      order ke waqt confirm karein.
+    </div>
+
+    <div class="actions">
+      <button class="btn outline" id="addBtn">
+        🛒 Add to Cart
+      </button>
+      <button class="btn primary" id="buyBtn">
+        » Buy Now
+      </button>
+    </div>
+
+    <p class="note">
+      Gaon ke local sellers aur artisans ko support karein.
+    </p>
+
+    <section class="panel">
+      <h2>Product Highlights</h2>
+
+      <div class="highlights">
+        <div>
+          <div class="label">Product Name</div>
+          <div class="value" id="highlightName"></div>
+        </div>
+
+        <div>
+          <div class="label">Brand</div>
+          <div class="value">GaonKart Local</div>
+        </div>
+
+        <div>
+          <div class="label">Quantity</div>
+          <div class="value" id="highlightUnit"></div>
+        </div>
+
+        <div>
+          <div class="label">Category</div>
+          <div class="value" id="category"></div>
+        </div>
+      </div>
+
+      <details>
+        <summary>Additional Details</summary>
+        <p id="additional"></p>
+        <p>Delivery timing aur final availability seller se confirm hogi.</p>
+      </details>
+    </section>
+
+    <section class="panel seller">
+      <div>
+        <h2>Sold By</h2>
+        <strong>GaonKart Local Seller</strong>
+        <p class="note">Local products · Handmade with care</p>
+      </div>
+      <a class="btn outline" href="index.html">View Shop</a>
+    </section>
+  </section>
+
 </main>
-<footer>© 2026 GaonKart</footer>
+
+<footer>
+  <strong>🌿 GaonKart</strong>
+  <p>© 2026 GaonKart · Local Village Products Marketplace</p>
+</footer>
+
 <script>
-const PRODUCTS=[
-{id:"mango",name:"Fresh Mango",price:120,unit:"1 kg",category:"fruits",image:"https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=700&q=80",desc:"Seasonal fresh mangoes sourced from local growers."},
-{id:"banana",name:"Fresh Bananas",price:50,unit:"1 dozen",category:"fruits",image:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=700&q=80",desc:"Fresh bananas for everyday use."},
-{id:"apple",name:"Fresh Apples",price:160,unit:"1 kg",category:"fruits",image:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=700&q=80",desc:"Crisp apples, carefully packed."},
-{id:"claypot",name:"Handmade Clay Matka",price:250,unit:"1 piece",category:"handmade",image:"https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=700&q=80",desc:"Traditional handmade clay pot."},
-{id:"basket",name:"Bamboo Basket",price:180,unit:"1 piece",category:"handmade",image:"https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=700&q=80",desc:"Useful woven basket for home storage."},
-{id:"jute",name:"Jute Shopping Bag",price:100,unit:"1 piece",category:"handmade",image:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=700&q=80",desc:"Reusable bag for everyday shopping."},
-{id:"diya",name:"Clay Diya Set",price:80,unit:"Set of 6",category:"home",image:"https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=700&q=80",desc:"Traditional clay diyas made by local artisans."},
-{id:"wooden-spoon",name:"Wooden Spoon",price:70,unit:"1 piece",category:"home",image:"https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=700&q=80",desc:"Simple wooden kitchen utensil."}
-];
-function addToCart(id){let cart=[];try{cart=JSON.parse(localStorage.getItem("gaonCart")||"[]")}catch(e){}let item=cart.find(x=>x.id===id);if(item)item.qty++;else cart.push({id,qty:1});localStorage.setItem("gaonCart",JSON.stringify(cart));alert("Product cart mein add ho gaya!");}
-const id=new URLSearchParams(location.search).get("id");
-const p=PRODUCTS.find(x=>x.id===id);
-const root=document.getElementById("product");
-if(!p){root.innerHTML="<h2>Product nahi mila</h2><p>Homepage se product select karein.</p><a href='index.html'>Homepage par jayein</a>";}
-else{document.title=p.name+" | GaonKart";root.innerHTML=`<section class="product"><img src="${p.image}" alt="${p.name}"><div><p class="muted">${p.category.toUpperCase()}</p><h1>${p.name}</h1><p class="price">₹${p.price}</p><p>${p.unit}</p><p class="muted">${p.desc}</p><p>Availability aur delivery details seller se order ke waqt confirm karein.</p><button class="btn" onclick="addToCart('${p.id}')">Add to Cart</button><a class="btn" href="user-caet.html">Go to Cart</a></div></section>`;}
+const products = {
+  mango: {
+    name: 'Fresh Mango',
+    price: 120,
+    unit: '1 kg',
+    category: 'Fruits',
+    emoji: '🥭',
+    image: 'https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=900&q=85',
+    desc: 'Seasonal mangoes from local growers.'
+  },
+
+  banana: {
+    name: 'Fresh Bananas',
+    price: 50,
+    unit: '1 dozen',
+    category: 'Fruits',
+    emoji: '🍌',
+    image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=900&q=85',
+    desc: 'Fresh bananas for everyday use.'
+  },
+
+  apple: {
+    name: 'Fresh Apples',
+    price: 160,
+    unit: '1 kg',
+    category: 'Fruits',
+    emoji: '🍎',
+    image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=900&q=85',
+    desc: 'Crisp apples, carefully packed.'
+  },
+
+  claypot: {
+    name: 'Handmade Clay Matka',
+    price: 250,
+    unit: '1 piece',
+    category: 'Handmade',
+    emoji: '🏺',
+    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=900&q=85',
+    desc: 'Traditional handmade clay water pot.'
+  },
+
+  basket: {
+    name: 'Bamboo Basket',
+    price: 180,
+    unit: '1 piece',
+    category: 'Handmade',
+    emoji: '🧺',
+    image: 'https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=900&q=85',
+    desc: 'Traditional handwoven bamboo basket.'
+  },
+
+  jute: {
+    name: 'Jute Shopping Bag',
+    price: 100,
+    unit: '1 piece',
+    category: 'Handmade',
+    emoji: '🛍️',
+    image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=85',
+    desc: 'Reusable bag for everyday shopping.'
+  },
+
+  diya: {
+    name: 'Clay Diya Set',
+    price: 80,
+    unit: 'Set of 6',
+    category: 'Home',
+    emoji: '🪔',
+    image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=900&q=85',
+    desc: 'Traditional clay diyas made by local artisans.'
+  },
+
+  'wooden-spoon': {
+    name: 'Wooden Spoon',
+    price: 70,
+    unit: '1 piece',
+    category: 'Home',
+    emoji: '🥄',
+    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=900&q=85',
+    desc: 'Simple wooden kitchen utensil.'
+  }
+};
+
+const id = new URLSearchParams(location.search).get('id') || 'diya';
+const p = products[id] || products.diya;
+
+document.title = p.name + ' | GaonKart';
+
+document.getElementById('crumbName').textContent = p.name;
+document.getElementById('name').textContent = p.name;
+document.getElementById('price').textContent = '₹' + p.price;
+document.getElementById('unit').textContent = p.unit;
+document.getElementById('desc').textContent = p.desc;
+document.getElementById('highlightName').textContent = p.name;
+document.getElementById('highlightUnit').textContent = p.unit;
+document.getElementById('category').textContent = p.category;
+document.getElementById('additional').textContent = p.desc;
+
+const mainImage = document.getElementById('mainImage');
+mainImage.src = p.image;
+mainImage.alt = p.name;
+
+mainImage.onerror = () => {
+  mainImage.onerror = null;
+  mainImage.style.display = 'none';
+
+  document.querySelector('.heroimg').insertAdjacentHTML(
+    'beforeend',
+    '<span style="font-size:100px">' + p.emoji + '</span>'
+  );
+};
+
+const thumbs = document.getElementById('thumbs');
+
+[p.image, p.image, p.image, p.image].forEach((url, i) => {
+  const b = document.createElement('button');
+  b.className = 'thumb' + (i === 0 ? ' active' : '');
+  b.type = 'button';
+  b.setAttribute('aria-label', 'Product photo ' + (i + 1));
+
+  const im = document.createElement('img');
+  im.src = url;
+  im.alt = p.name + ' ' + (i + 1);
+
+  im.onerror = () => {
+    im.style.display = 'none';
+    b.textContent = p.emoji;
+  };
+
+  b.appendChild(im);
+
+  b.onclick = () => {
+    mainImage.style.display = 'block';
+    mainImage.src = url;
+
+    document.querySelectorAll('.thumb').forEach(x => {
+      x.classList.remove('active');
+    });
+
+    b.classList.add('active');
+  };
+
+  thumbs.appendChild(b);
+});
+
+function cart() {
+  try {
+    const c = JSON.parse(localStorage.getItem('gaonCart') || '[]');
+    return Array.isArray(c) ? c : [];
+  } catch {
+    return [];
+  }
+}
+
+function count() {
+  document.getElementById('cartCount').textContent =
+    cart().reduce((s, x) => s + (Number(x.qty) || 0), 0);
+}
+
+function add() {
+  const c = cart();
+  const item = c.find(x => x.id === id);
+
+  if (item) {
+    item.qty = (Number(item.qty) || 0) + 1;
+  } else {
+    c.push({ id: id, qty: 1 });
+  }
+
+  try {
+    localStorage.setItem('gaonCart', JSON.stringify(c));
+  } catch (error) {
+    alert('Cart save nahi ho saka. Browser storage check karein.');
+  }
+
+  count();
+  alert(p.name + ' cart mein add ho gaya!');
+}
+
+document.getElementById('addBtn').onclick = add;
+
+document.getElementById('buyBtn').onclick = () => {
+  add();
+  location.href = 'user-caet.html';
+};
+
+count();
 </script>
+
 </body>
 </html>
-
